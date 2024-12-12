@@ -1,6 +1,7 @@
-import mongoose, { Document } from 'mongoose';
+import mongoose, { Document, Types } from 'mongoose';
 
 interface TaskProps extends Document {
+    user: Types.ObjectId;
     title: string;
     text: string;
     createdAt: Date;
@@ -9,6 +10,11 @@ interface TaskProps extends Document {
 
 const taskSchema = new mongoose.Schema<TaskProps>(
     {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true,
+        },
         title: {
             type: String,
             required: true,
