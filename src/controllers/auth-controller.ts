@@ -53,3 +53,34 @@ export const signupUser = async (req: Request, res: Response, next: NextFunction
         next(error);
     }
 };
+
+export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { username, password } = req.body;
+        const user = await User.findOne({ username });
+        if (!user) {
+            const error: ErrorProps = new Error('User not found');
+            error.status = 404;
+            return next(error);
+        }
+        const isPasswordValid = await bcrypt.compare(password, user?.password || '');
+
+        if (!isPasswordValid) {
+            const error: ErrorProps = new Error('Invalid password');
+            error.status = 404;
+            return next(error);
+        } else {
+            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string);
+            res.cookie('jwt', token, {
+                maxAge: 24 * 60 * 60 * 1000,
+                httpOnly: true,
+                sameSite: 'strict',
+                secure: process.env.NODE_ENV !== 'development',
+            });
+
+            res.status(200).json({ message: 'User logged in successfully', user });
+        }
+    } catch (error) {
+        next(error);
+    }
+};
