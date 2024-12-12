@@ -63,6 +63,14 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
             error.status = 404;
             return next(error);
         }
+
+        const token = req.cookies.jwt;
+        if (token) {
+            const error: ErrorProps = new Error('User is already logged in');
+            error.status = 401;
+            return next(error);
+        }
+
         const isPasswordValid = await bcrypt.compare(password, user?.password || '');
 
         if (!isPasswordValid) {
