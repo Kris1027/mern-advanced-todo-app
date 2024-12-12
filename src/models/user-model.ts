@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import mongoose, { Document } from 'mongoose';
 
-interface UserProps {
+interface UserProps extends Document {
     username: string;
     email: string;
     password: string;

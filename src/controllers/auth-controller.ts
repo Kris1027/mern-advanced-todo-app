@@ -43,7 +43,7 @@ export const signupUser = async (req: Request, res: Response, next: NextFunction
             });
 
             await newUser.save();
-            res.status(201).json({ message: 'User created successfully', newUser });
+            res.status(201).json({ message: 'User created successfully' });
         } else {
             const error: ErrorProps = new Error('Invalid user data');
             error.status = 400;
@@ -86,7 +86,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
                 secure: process.env.NODE_ENV !== 'development',
             });
 
-            res.status(200).json({ message: 'User logged in successfully', user });
+            res.status(200).json({ message: 'User logged in successfully' });
         }
     } catch (error) {
         next(error);
@@ -97,6 +97,20 @@ export const logoutUser = async (req: Request, res: Response, next: NextFunction
     try {
         res.cookie('jwt', '', { maxAge: 0 });
         res.status(200).json({ message: 'User logged out successfully' });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const getUserData = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        if (!req.user || !req.user._id) {
+            const error: ErrorProps = new Error('User not logged in');
+            error.status = 404;
+            return next(error);
+        }
+        const user = await User.findById(req.user._id).select('-password');
+        res.status(200).json({ message: 'User data fetched successfully', user });
     } catch (error) {
         next(error);
     }
