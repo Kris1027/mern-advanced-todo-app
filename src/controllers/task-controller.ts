@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from 'express';
 import type { ErrorProps } from '../middleware/global-error';
 import Task from '../models/task-model';
+import User from '../models/user-model';
 
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -35,4 +36,28 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
     } catch (error) {
         next(error);
     }
+};
+
+export const getUserTasks = async (req: Request, res: Response, next: NextFunction) => {
+    if (!req.user || !req.user._id) {
+        const error: ErrorProps = new Error('User not logged in');
+        error.status = 404;
+        return next(error);
+    }
+
+    const user = await User.findById(req.user._id);
+    if (!user) {
+        const error: ErrorProps = new Error('User not found');
+        error.status = 404;
+        return next(error);
+    }
+
+    const tasks = await Task.find({ user: user });
+    res.status(200).json({
+        message:
+            tasks.length > 0
+                ? `Tasks of ${user.username} fetched successfully`
+                : `${user.username} have no tasks`,
+        tasks,
+    });
 };
