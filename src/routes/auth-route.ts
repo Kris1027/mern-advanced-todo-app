@@ -1,5 +1,6 @@
 import express from 'express';
 import { loginUser, logoutUser, signupUser } from '../controllers/auth-controller';
+import { protectRoute } from '../utils/protect-route';
 import { validateSchema } from '../utils/validate-schema';
 import { validateUser } from '../validators/auth-validator';
 
@@ -7,6 +8,6 @@ const router = express.Router();
 
 router.post('/signup', validateSchema(validateUser), signupUser);
 router.post('/login', loginUser);
-router.post('/logout', logoutUser);
+router.post('/logout', protectRoute, logoutUser);
 
 export default router;

@@ -95,13 +95,6 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 
 export const logoutUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const token = req.cookies.jwt;
-        if (!token) {
-            const error: ErrorProps = new Error('User is not logged in');
-            error.status = 401;
-            return next(error);
-        }
-
         res.cookie('jwt', '', { maxAge: 0 });
         res.status(200).json({ message: 'User logged out successfully' });
     } catch (error) {

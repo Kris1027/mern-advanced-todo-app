@@ -8,6 +8,14 @@ interface UserProps {
     updatedAt: Date;
 }
 
+declare global {
+    namespace Express {
+        interface Request {
+            user?: UserProps;
+        }
+    }
+}
+
 const userSchema = new mongoose.Schema<UserProps>(
     {
         username: {
