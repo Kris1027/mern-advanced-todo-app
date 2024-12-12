@@ -39,25 +39,29 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 };
 
 export const getUserTasks = async (req: Request, res: Response, next: NextFunction) => {
-    if (!req.user || !req.user._id) {
-        const error: ErrorProps = new Error('User not logged in');
-        error.status = 404;
-        return next(error);
-    }
+    try {
+        if (!req.user || !req.user._id) {
+            const error: ErrorProps = new Error('User not logged in');
+            error.status = 404;
+            return next(error);
+        }
 
-    const user = await User.findById(req.user._id);
-    if (!user) {
-        const error: ErrorProps = new Error('User not found');
-        error.status = 404;
-        return next(error);
-    }
+        const user = await User.findById(req.user._id);
+        if (!user) {
+            const error: ErrorProps = new Error('User not found');
+            error.status = 404;
+            return next(error);
+        }
 
-    const tasks = await Task.find({ user: user });
-    res.status(200).json({
-        message:
-            tasks.length > 0
-                ? `Tasks of ${user.username} fetched successfully`
-                : `${user.username} have no tasks`,
-        tasks,
-    });
+        const tasks = await Task.find({ user: user });
+        res.status(200).json({
+            message:
+                tasks.length > 0
+                    ? `Tasks of ${user.username} fetched successfully`
+                    : `${user.username} have no tasks`,
+            tasks,
+        });
+    } catch (error) {
+        next(error);
+    }
 };
