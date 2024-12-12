@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
 import authRouter from './routes/auth-route';
+import taskRouter from './routes/task-route';
 
 import globalError from './middleware/global-error';
 import notFound from './middleware/not-found';
@@ -19,6 +20,7 @@ app.use(cors({ credentials: true }));
 app.use(cookieParser());
 
 app.use('/api/auth', authRouter);
+app.use('/api/tasks', taskRouter);
 
 app.use(notFound);
 app.use(globalError);
