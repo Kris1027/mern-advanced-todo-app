@@ -1,9 +1,12 @@
 import { Application } from 'express';
+import connectDB from './config/db';
 
-const startServer = (app: Application) => {
+const startServer = async (app: Application) => {
     const PORT = process.env.PORT || 3000;
 
     try {
+        await connectDB();
+
         app.on('error', (error) => {
             console.error(`Express app error: ${error}`);
             process.exit(1);
