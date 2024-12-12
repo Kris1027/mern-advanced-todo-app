@@ -42,7 +42,7 @@ export const getUserTasks = async (req: Request, res: Response, next: NextFuncti
     try {
         if (!req.user || !req.user._id) {
             const error: ErrorProps = new Error('User not logged in');
-            error.status = 404;
+            error.status = 401;
             return next(error);
         }
 
@@ -61,6 +61,42 @@ export const getUserTasks = async (req: Request, res: Response, next: NextFuncti
                     : `${user.username} have no tasks`,
             tasks,
         });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const deleteTask = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const task = await Task.findById(req.params.id);
+        if (!task) {
+            const error: ErrorProps = new Error('Task not found');
+            error.status = 404;
+            return next(error);
+        }
+
+        if (!req.user || !req.user._id) {
+            const error: ErrorProps = new Error('User not logged in');
+            error.status = 401;
+            return next(error);
+        }
+
+        const userId = req.user._id;
+        const user = await User.findById(userId);
+        if (!user) {
+            const error: ErrorProps = new Error('User not found');
+            error.status = 404;
+            return next(error);
+        }
+
+        if (task.user.toString() !== userId.toString()) {
+            const error: ErrorProps = new Error('Not authorized to delete this task');
+            error.status = 401;
+            return next(error);
+        }
+
+        await Task.findByIdAndDelete(req.params.id);
+        res.status(200).json({ message: 'Task deleted successfully', task });
     } catch (error) {
         next(error);
     }
