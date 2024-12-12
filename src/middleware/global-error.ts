@@ -1,6 +1,6 @@
 import type { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
 
-interface ErrorProps extends Error {
+export interface ErrorProps extends Error {
     status?: number;
 }
 
