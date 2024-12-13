@@ -3,9 +3,10 @@
     "version": "1.0.0",
     "main": "app.js",
     "scripts": {
-        "start": "node --env-file=.env ./dist/app.js",
+        "start": "node ./dist/app.js",
         "build": "tsc --build",
-        "dev": "ts-node-dev --respawn --transpile-only --env-file=.env ./src/app.ts"
+        "dev": "ts-node-dev --respawn --transpile-only --env-file=.env ./src/app.ts",
+        "postinstall": "npm run build"
     },
     "author": "kris1027",
     "license": "ISC",
