@@ -2,6 +2,7 @@ import express from 'express';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
 import authRouter from './routes/auth-route';
 import taskRouter from './routes/task-route';
@@ -10,6 +11,8 @@ import globalError from './middleware/global-error';
 import notFound from './middleware/not-found';
 
 import startServer from './server';
+
+dotenv.config();
 
 const app = express();
 
