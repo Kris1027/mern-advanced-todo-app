@@ -1,3 +1,4 @@
+import LoadingSpinner from '@/components/loading-spinner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
@@ -36,7 +37,7 @@ function LoginPage() {
         resolver: zodResolver(loginSchema),
     });
 
-    const { mutate, isPending } = useMutation({
+    const { mutate, isPending, isError, error } = useMutation({
         mutationFn: async (values: z.infer<typeof loginSchema>) => {
             const res = await axios.post('/api/auth/login', values);
             return res.data;
@@ -70,6 +71,7 @@ function LoginPage() {
                 </p>
                 <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
                     <Input
+                        disabled={isPending}
                         type='text'
                         placeholder='username'
                         {...register('username', { required: true })}
@@ -78,6 +80,7 @@ function LoginPage() {
                         <p className='text-xs text-red-500'>{errors.username.message}</p>
                     )}
                     <Input
+                        disabled={isPending}
                         type='password'
                         placeholder='password'
                         {...register('password', { required: true })}
@@ -86,8 +89,9 @@ function LoginPage() {
                         <p className='text-xs text-red-500'>{errors.password.message}</p>
                     )}
                     <Button disabled={isPending} size='fullWidth' type='submit'>
-                        Login
+                        {isPending ? <LoadingSpinner size='xs' /> : 'Login'}
                     </Button>
+                    {isError && <p className='text-xs text-red-500'>{error.message}</p>}
                 </form>
                 <p className='text-sm text-center py-4 opacity-70'>
                     Don’t have an account yet?{' '}

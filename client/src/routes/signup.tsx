@@ -1,3 +1,4 @@
+import LoadingSpinner from '@/components/loading-spinner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
@@ -74,6 +75,7 @@ function SignupPage() {
                 </p>
                 <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
                     <Input
+                        disabled={isPending}
                         type='text'
                         placeholder='username'
                         {...register('username', { required: true })}
@@ -82,12 +84,14 @@ function SignupPage() {
                         <p className='text-xs text-red-500'>{errors.username.message}</p>
                     )}
                     <Input
+                        disabled={isPending}
                         type='text'
                         placeholder='email'
                         {...register('email', { required: true })}
                     />
                     {errors.email && <p className='text-xs text-red-500'>{errors.email.message}</p>}
                     <Input
+                        disabled={isPending}
                         type='password'
                         placeholder='password'
                         {...register('password', { required: true })}
@@ -96,7 +100,7 @@ function SignupPage() {
                         <p className='text-xs text-red-500'>{errors.password.message}</p>
                     )}
                     <Button disabled={isPending} size='fullWidth' type='submit'>
-                        {isPending ? 'Signup...' : 'Signup'}
+                        {isPending ? <LoadingSpinner size='xs' /> : 'Signup'}
                     </Button>
                     {isError && <p className='text-xs text-red-500'>{error.message}</p>}
                 </form>
