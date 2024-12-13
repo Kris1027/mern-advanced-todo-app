@@ -2,7 +2,6 @@ import express from 'express';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import path from 'path';
 
 import authRouter from './routes/auth-route';
 import taskRouter from './routes/task-route';

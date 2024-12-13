@@ -12,7 +12,8 @@
         "strictFunctionTypes": true,
         "skipLibCheck": true,
         "moduleResolution": "node",
-        "types": ["node"]
+        "types": ["node"],
+        "lib": ["es6", "dom"]
     },
     "include": ["src/**/*"],
     "exclude": ["node_modules", "dist"]
