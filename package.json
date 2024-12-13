@@ -3,10 +3,11 @@
     "version": "1.0.0",
     "main": "app.js",
     "scripts": {
-        "start": "npm run build && node dist/app.js",
-        "build": "tsc",
+        "start": "node ./dist/app.js",
+        "build": "npm install && npm run compile",
+        "compile": "tsc",
         "dev": "ts-node-dev --respawn --transpile-only --env-file=.env ./src/app.ts",
-        "postinstall": "npm run build"
+        "postinstall": "npm run compile"
     },
     "author": "kris1027",
     "license": "ISC",
