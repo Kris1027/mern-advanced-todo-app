@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "ES2023",
-        "module": "NodeNext",
+        "target": "ES6",
+        "module": "CommonJS",
         "rootDir": "./src",
         "outDir": "./dist",
         "esModuleInterop": true,
@@ -11,5 +11,7 @@
         "strictNullChecks": true,
         "strictFunctionTypes": true,
         "skipLibCheck": true
-    }
+    },
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "dist"]
 }
