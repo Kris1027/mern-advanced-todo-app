@@ -1,10 +1,12 @@
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import axios, { AxiosError } from 'axios';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 
 const loginSchema = z.object({
     username: z
@@ -34,26 +36,29 @@ function LoginPage() {
         resolver: zodResolver(loginSchema),
     });
 
-    async function onSubmit(values: z.infer<typeof loginSchema>) {
-        try {
-            const res = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(values),
-            });
-
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message || 'Something went wrong');
-
-            reset();
-            navigate({ to: '/' });
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (values: z.infer<typeof loginSchema>) => {
+            const res = await axios.post('/api/auth/login', values);
+            return res.data;
+        },
+        onSuccess: (data) => {
             toast({ title: data.message, variant: 'positive' });
-        } catch (error) {
-            toast({ title: (error as Error).message, variant: 'destructive' });
-            console.error('Login failed', (error as Error).message);
-        }
+            navigate({ to: '/' });
+            reset();
+        },
+        onError: (error: AxiosError<{ message: string }>) => {
+            toast({
+                title:
+                    error.response?.data?.message ||
+                    error.message ||
+                    'An unexpected error occurred',
+                variant: 'destructive',
+            });
+        },
+    });
+
+    async function onSubmit(values: z.infer<typeof loginSchema>) {
+        mutate(values);
     }
     return (
         <main className='w-full flex gap-10 min-h-screen justify-center items-center'>
@@ -80,7 +85,7 @@ function LoginPage() {
                     {errors.password && (
                         <p className='text-xs text-red-500'>{errors.password.message}</p>
                     )}
-                    <Button size='fullWidth' type='submit'>
+                    <Button disabled={isPending} size='fullWidth' type='submit'>
                         Login
                     </Button>
                 </form>
