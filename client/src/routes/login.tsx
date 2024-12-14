@@ -1,4 +1,5 @@
 import LoadingSpinner from '@/components/loading-spinner';
+import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
@@ -64,7 +65,7 @@ function LoginPage() {
     }
     return (
         <main className='w-full flex gap-10 min-h-screen justify-center items-center'>
-            <img src='/logo.png' alt='app logo' className='w-80 rounded-full' />
+            <Logo size='md' />
             <div className='w-[300px]'>
                 <h2 className='text-xl text-center py-4'>Stay Organized, Stay Productive</h2>
                 <p className='text-sm text-center py-4 opacity-70'>
