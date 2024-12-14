@@ -33,6 +33,9 @@ function HomePage() {
             <ul className='flex justify-center flex-wrap gap-10'>
                 {data &&
                     data.tasks.map((task: TaskProps) => <TaskItem key={task._id} task={task} />)}
+                {data && data.tasks.length === 0 && (
+                    <p>Nothing on your plate right now. Enjoy the moment!</p>
+                )}
             </ul>
         </main>
     );

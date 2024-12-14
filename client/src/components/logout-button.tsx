@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
 import axios, { AxiosError } from 'axios';
 import { Button } from './ui/button';
+import { LogOut } from 'lucide-react';
 
 const LogoutButton = () => {
     const navigate = useNavigate();
@@ -27,7 +28,11 @@ const LogoutButton = () => {
         },
     });
 
-    return <Button onClick={() => mutate()}>Logout</Button>;
+    return (
+        <Button onClick={() => mutate()}>
+            <LogOut />
+        </Button>
+    );
 };
 
 export default LogoutButton;

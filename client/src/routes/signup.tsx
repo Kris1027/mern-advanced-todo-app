@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import axios, { AxiosError } from 'axios';
+import { UserPlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
@@ -38,7 +39,7 @@ function SignupPage() {
         resolver: zodResolver(signupSchema),
     });
 
-    const { mutate, isPending, isError, error } = useMutation({
+    const { mutate, isPending } = useMutation({
         mutationFn: async (values: z.infer<typeof signupSchema>) => {
             const res = await axios.post('/api/auth/signup', values);
             return res.data;
@@ -100,9 +101,8 @@ function SignupPage() {
                         <p className='text-xs text-red-500'>{errors.password.message}</p>
                     )}
                     <Button disabled={isPending} size='fullWidth' type='submit'>
-                        {isPending ? <LoadingSpinner size='xs' /> : 'Signup'}
+                        {isPending ? <LoadingSpinner size='xs' /> : <UserPlus />}
                     </Button>
-                    {isError && <p className='text-xs text-red-500'>{error.message}</p>}
                 </form>
                 <p className='text-sm text-center py-4 opacity-70'>
                     Already have an account?{' '}
