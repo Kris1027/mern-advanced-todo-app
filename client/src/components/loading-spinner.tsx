@@ -13,19 +13,21 @@ const LoadingSpinner: React.FC<SpinnerProps> = ({ size = 'sm', className = '' })
     };
 
     return (
-        <div
-            className={`
-        animate-spin
-        border-2
-        border-t-foreground
-        border-l-foreground
-        border-b-transparent
-        border-r-transparent
-        rounded-full
-        ${sizeClasses[size]}
-        ${className}
-      `}
-        />
+        <main className='w-full h-screen flex justify-center items-center'>
+            <div
+                className={`
+            animate-spin
+            border-2
+            border-t-foreground
+            border-l-foreground
+            border-b-transparent
+            border-r-transparent
+            rounded-full
+            ${sizeClasses[size]}
+            ${className}
+          `}
+            />
+        </main>
     );
 };
 
