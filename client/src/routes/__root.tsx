@@ -1,4 +1,4 @@
-import { ThemeModeToggle } from '@/components/theme-mode-toggle';
+import Navbar from '@/components/nav-bar';
 import { Toaster } from '@/components/ui/toaster';
 import { Outlet, createRootRoute } from '@tanstack/react-router';
 import * as React from 'react';
@@ -10,7 +10,7 @@ export const Route = createRootRoute({
 function RootComponent() {
     return (
         <React.Fragment>
-            <ThemeModeToggle />
+            <Navbar />
             <Outlet />
             <Toaster />
         </React.Fragment>
