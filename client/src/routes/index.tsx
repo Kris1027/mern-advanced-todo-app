@@ -23,7 +23,6 @@ function HomePage() {
             const res = await axios.get('/api/tasks');
             return res.data;
         },
-        staleTime: 0,
     });
 
     return (

@@ -7,7 +7,15 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@/contexts/theme-provider';
 
 const router = createRouter({ routeTree });
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 1000 * 60 * 5,
+            retry: false,
+            refetchOnWindowFocus: false,
+        },
+    },
+});
 
 declare module '@tanstack/react-router' {
     interface Register {
