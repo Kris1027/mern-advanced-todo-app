@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
-import { createFileRoute, Link, redirect, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import axios, { AxiosError } from 'axios';
 import { UserPlus } from 'lucide-react';
 import { useForm } from 'react-hook-form';
@@ -25,25 +25,10 @@ const signupSchema = z.object({
 
 export const Route = createFileRoute('/signup')({
     component: SignupPage,
-    beforeLoad: async () => {
-        try {
-            const res = await axios.get('/api/auth/user');
-            if (res.data?.user) {
-                throw redirect({ to: '/' });
-            }
-        } catch (error) {
-            if (axios.isAxiosError(error) && error.response?.status === 401) {
-                return null;
-            } else {
-                console.error('An unexpected error occurred:', error);
-                throw error;
-            }
-        }
-    },
 });
 
 function SignupPage() {
-    const navigate = useNavigate({ from: '/login' });
+    const navigate = useNavigate();
     const { toast } = useToast();
 
     const {

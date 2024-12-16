@@ -1,21 +1,13 @@
+import { authApi } from '@/api/auth-api';
 import LoadingSpinner from '@/components/loading-spinner';
 import TaskItem from '@/components/task-item';
 import { useQuery } from '@tanstack/react-query';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import axios from 'axios';
 
 export const Route = createFileRoute('/')({
     component: HomePage,
-    beforeLoad: async () => {
-        try {
-            const res = await axios.get('/api/auth/user');
-            if (!res.data) {
-                throw redirect({ to: '/login' });
-            }
-        } catch {
-            throw redirect({ to: '/login' });
-        }
-    },
+    beforeLoad: authApi,
 });
 
 export interface TaskProps {
