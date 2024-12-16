@@ -8,7 +8,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useTheme } from '@/hooks/use-theme';
 
-export function ThemeModeToggle() {
+const ThemeModeToggle: React.FC = () => {
     const { setTheme } = useTheme();
 
     return (
@@ -27,4 +27,6 @@ export function ThemeModeToggle() {
             </DropdownMenuContent>
         </DropdownMenu>
     );
-}
+};
+
+export default ThemeModeToggle;

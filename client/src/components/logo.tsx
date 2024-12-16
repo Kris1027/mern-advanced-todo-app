@@ -5,7 +5,11 @@ const logoSizes = {
     md: 'w-80',
 };
 
-const Logo = ({ size = 'sm' }: { size?: keyof typeof logoSizes }) => {
+interface LogoProps {
+    size?: keyof typeof logoSizes;
+}
+
+const Logo: React.FC<LogoProps> = ({ size = 'sm' }) => {
     return (
         <Link to='/'>
             <img src='/logo.png' alt='app logo' className={`${logoSizes[size]} rounded-full`} />

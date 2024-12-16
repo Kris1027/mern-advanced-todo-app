@@ -1,10 +1,10 @@
 import Logo from './logo';
 import LogoutButton from './logout-button';
-import { ThemeModeToggle } from './theme-mode-toggle';
+import ThemeModeToggle from './theme-mode-toggle';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { Link } from '@tanstack/react-router';
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
     return (
         <nav className='flex justify-between p-4'>
             <Logo />

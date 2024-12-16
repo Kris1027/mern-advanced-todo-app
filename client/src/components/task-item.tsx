@@ -1,9 +1,13 @@
-import { TaskProps } from '@/routes';
+import { Check, Clock, Pencil, Trash2 } from 'lucide-react';
+import { TaskProps } from '@/types/task-type';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { Check, Clock, Pencil, Trash2 } from 'lucide-react';
 
-const TaskItem = ({ task }: { task: TaskProps }) => {
+interface TaskItemProps {
+    task: TaskProps;
+}
+
+const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     const formatDate = (date: Date) =>
         new Date(date).toLocaleString('en-US', {
             year: 'numeric',
