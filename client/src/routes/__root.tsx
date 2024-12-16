@@ -1,8 +1,8 @@
-import Navbar from '@/components/nav-bar';
-import { Toaster } from '@/components/ui/toaster';
 import { Outlet, createRootRoute, useLoaderData } from '@tanstack/react-router';
 import axios from 'axios';
 import * as React from 'react';
+import Navbar from '@/components/nav-bar';
+import { Toaster } from '@/components/ui/toaster';
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -21,9 +21,11 @@ function RootComponent() {
 
     return (
         <React.Fragment>
-            {user && <Navbar />}
-            <Outlet />
-            <Toaster />
+            <div className='max-w-[1080px] mx-auto'>
+                {user && <Navbar />}
+                <Outlet />
+                <Toaster />
+            </div>
         </React.Fragment>
     );
 }

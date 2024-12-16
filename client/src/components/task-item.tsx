@@ -1,12 +1,13 @@
-import { Check, Clock, Pencil, Trash2 } from 'lucide-react';
-import { TaskProps } from '@/types/task-type';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import EditTask from './edit-task';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
+import { Check, Clock, Pencil, Trash2 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import LoadingSpinner from './loading-spinner';
+import type { TaskProps } from '@/types/task-type';
+import { formatDate } from '@/lib/utils';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import EditTask from '@/components/edit-task';
+import LoadingSpinner from '@/components/loading-spinner';
 
 export interface TaskItemProps {
     task: TaskProps;
@@ -26,28 +27,17 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
         },
     });
 
-    const formatDate = (date: Date) =>
-        new Date(date).toLocaleString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-        });
-
     return (
         <Card className='w-[600px]'>
             <CardHeader className='text-center'>
                 <CardTitle>{task.title}</CardTitle>
             </CardHeader>
             <CardContent className='space-y-4'>
-                <div className='flex justify-between'>
-                    <p>{task.text}</p>
+                <pre className='whitespace-pre-wrap'>{task.text}</pre>
+                <div className='space-x-4'>
                     <Button variant='default'>
                         <Check />
                     </Button>
-                </div>
-                <div className='space-x-4'>
                     <EditTask task={task} />
                     <Button onClick={() => deleteTask()} variant='destructive'>
                         {isPending ? <LoadingSpinner size='xs' /> : <Trash2 />}

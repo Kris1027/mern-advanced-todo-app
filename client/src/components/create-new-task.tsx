@@ -4,6 +4,7 @@ import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { Plus } from 'lucide-react';
 import { createTaskSchema } from '@/schemas/create-task-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from '@/hooks/use-toast';
@@ -62,7 +63,11 @@ const CreateNewTask: React.FC = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger>Create new task</DialogTrigger>
+            <DialogTrigger className='group relative inline-flex items-center px-4 py-2 border-2 border-transparent bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md hover:shadow-xl text-sm font-semibold'>
+                <span className='absolute inset-0 bg-white bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></span>
+                <Plus className='mr-2 h-4 w-4 transform group-hover:rotate-90 transition-transform duration-300' />
+                Create New Task
+            </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>New task</DialogTitle>
