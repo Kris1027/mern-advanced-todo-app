@@ -2,8 +2,9 @@ import { Check, Clock, Pencil, Trash2 } from 'lucide-react';
 import { TaskProps } from '@/types/task-type';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
+import EditTask from './edit-task';
 
-interface TaskItemProps {
+export interface TaskItemProps {
     task: TaskProps;
 }
 
@@ -30,9 +31,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                     </Button>
                 </div>
                 <div className='space-x-4'>
-                    <Button variant='secondary'>
-                        <Pencil />
-                    </Button>
+                    <EditTask task={task} />
                     <Button variant='destructive'>
                         <Trash2 />
                     </Button>

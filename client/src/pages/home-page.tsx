@@ -6,7 +6,10 @@ import { taskApi } from '@/api/task-api';
 import LoadingSpinner from '@/components/loading-spinner';
 
 const HomePage: React.FC = () => {
-    const { data: tasks, isLoading } = useQuery({ queryKey: ['tasks'], queryFn: taskApi });
+    const { data: tasks, isLoading } = useQuery({
+        queryKey: ['tasks'],
+        queryFn: taskApi,
+    });
 
     return (
         <main className='p-10'>
