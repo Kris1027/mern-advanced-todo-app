@@ -1,7 +1,9 @@
+import { useLoaderData } from '@tanstack/react-router';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { useLoaderData } from '@tanstack/react-router';
+import { Label } from '@/components/ui/label';
+import ProfileImage from '@/components/profile-image';
 
 const ProfilePage: React.FC = () => {
     const user = useLoaderData({ from: '__root__' });
@@ -12,9 +14,20 @@ const ProfilePage: React.FC = () => {
                 <CardDescription>You can change here your profile settings</CardDescription>
             </CardHeader>
             <CardContent>
-                <Input placeholder={user.user.username} />
-                <Input placeholder={user.user.email} />
-                <Button type='submit'>Save</Button>
+                <form className='flex flex-col gap-4 w-1/2 items-start'>
+                    <Label htmlFor='profile-image'>Profile Image</Label>
+                    <ProfileImage />
+                    <Label htmlFor='username'>Username</Label>
+                    <Input id='username' placeholder={user.user.username} />
+                    <Label>Email address</Label>
+                    <Input id='email' placeholder={user.user.email} />
+                    <div className='space-x-4'>
+                        <Button type='submit'>Save</Button>
+                        <Button variant='destructive' type='reset'>
+                            Cancel
+                        </Button>
+                    </div>
+                </form>
             </CardContent>
         </Card>
     );

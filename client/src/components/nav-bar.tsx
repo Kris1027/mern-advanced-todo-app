@@ -1,7 +1,7 @@
-import Logo from './logo';
-import LogoutButton from './logout-button';
-import ThemeModeToggle from './theme-mode-toggle';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import Logo from '@/components/logo';
+import LogoutButton from '@/components/logout-button';
+import ProfileImage from '@/components/profile-image';
+import ThemeModeToggle from '@/components/theme-mode-toggle';
 import { Link } from '@tanstack/react-router';
 
 const Navbar: React.FC = () => {
@@ -9,12 +9,9 @@ const Navbar: React.FC = () => {
         <nav className='flex justify-between p-4'>
             <Logo />
             <div className='flex gap-4'>
-                <Avatar>
-                    <Link to='/profile'>
-                        <AvatarImage src='https://github.com/shadcn.png' />
-                    </Link>
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
+                <Link to='/profile'>
+                    <ProfileImage />
+                </Link>
                 <ThemeModeToggle />
                 <LogoutButton />
             </div>
