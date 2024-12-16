@@ -1,8 +1,13 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
+import { TaskProps } from '@/types/task-type';
 
-export const taskApi = async () => {
+interface TaskResponse {
+    tasks: TaskProps[];
+}
+
+export const taskApi = async (): Promise<TaskResponse> => {
     try {
-        const res = await axios.get('/api/tasks');
+        const res: AxiosResponse<TaskResponse> = await axios.get('/api/tasks');
         return res.data;
     } catch (error) {
         throw new Error(`Failed while fetching tasks: ${error}`);

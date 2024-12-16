@@ -1,10 +1,18 @@
 import { redirect } from '@tanstack/react-router';
-import axios from 'axios';
+import axios, { type AxiosResponse } from 'axios';
+import type { UserProps } from '@/types/user-type';
 
-export const authApi = async () => {
+interface AuthProps {
+    message: string;
+    user: UserProps;
+}
+
+export const authApi = async (): Promise<AuthProps | null> => {
     try {
-        const res = await axios.get('/api/auth/user');
-        if (!res.data) {
+        const res: AxiosResponse<AuthProps> = await axios.get('/api/auth/user');
+        if (res.data) {
+            return res.data;
+        } else {
             throw redirect({ to: '/login' });
         }
     } catch {
