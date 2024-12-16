@@ -2,7 +2,7 @@ import { useLoaderData } from '@tanstack/react-router';
 import TaskItem from '@/components/task-item';
 import type { TaskProps } from '@/types/task-type';
 
-const HomePage = () => {
+const HomePage: React.FC = () => {
     const { tasks } = useLoaderData({ from: '/' });
 
     return (

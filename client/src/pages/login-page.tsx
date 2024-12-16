@@ -12,7 +12,7 @@ import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
     const navigate = useNavigate();
     const { toast } = useToast();
 

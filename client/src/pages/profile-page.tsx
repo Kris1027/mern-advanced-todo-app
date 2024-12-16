@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { useLoaderData } from '@tanstack/react-router';
 
-const ProfilePage = () => {
+const ProfilePage: React.FC = () => {
     const user = useLoaderData({ from: '__root__' });
     return (
         <Card>
