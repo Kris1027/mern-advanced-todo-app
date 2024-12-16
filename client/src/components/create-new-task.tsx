@@ -1,5 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useLoaderData } from '@tanstack/react-router';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios, { AxiosError } from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -20,11 +19,19 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { authApi } from '@/api/auth-api';
 
 const CreateNewTask: React.FC = () => {
     const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
-    const { user } = useLoaderData({ from: '__root__' });
+
+    const { data } = useQuery({
+        queryKey: ['authUser'],
+        queryFn: authApi,
+    });
+
+    const userId = data?.user._id;
+
     const {
         handleSubmit,
         register,
@@ -73,7 +80,7 @@ const CreateNewTask: React.FC = () => {
                     <DialogTitle>New task</DialogTitle>
                     <DialogDescription>Create new task</DialogDescription>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <Input type='hidden' {...register('user')} value={user._id} />
+                        <Input type='hidden' {...register('user')} value={userId} />
                         <Input
                             disabled={isPending}
                             {...register('title')}
