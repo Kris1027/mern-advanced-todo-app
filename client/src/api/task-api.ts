@@ -10,6 +10,10 @@ export const taskApi = async (): Promise<TaskResponse> => {
         const res: AxiosResponse<TaskResponse> = await axios.get('/api/tasks');
         return res.data;
     } catch (error) {
-        throw new Error(`Failed while fetching tasks: ${error}`);
+        if (axios.isAxiosError(error)) {
+            throw new Error(`Axios error: ${error.message}`);
+        } else {
+            throw new Error(`Failed while fetching tasks: ${error}`);
+        }
     }
 };
