@@ -6,14 +6,9 @@ import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@/contexts/theme-provider';
 
+const queryClient = new QueryClient();
+
 const router = createRouter({ routeTree });
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: true,
-        },
-    },
-});
 
 declare module '@tanstack/react-router' {
     interface Register {
