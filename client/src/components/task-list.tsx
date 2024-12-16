@@ -9,7 +9,7 @@ interface TaskListProps {
 
 const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
     return (
-        <div className='space-y-10'>
+        <div className='space-y-4 w-full'>
             {tasks && tasks.map((task: TaskProps) => <TaskItem key={task._id} task={task} />)}
             {tasks && tasks.length === 0 && (
                 <Alert>

@@ -28,13 +28,15 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     });
 
     return (
-        <Card className='w-[600px]'>
+        <Card className='overflow-hidden'>
             <CardHeader className='text-center'>
-                <CardTitle>{task.title}</CardTitle>
+                <CardTitle className='text-2xl'>{task.title}</CardTitle>
             </CardHeader>
             <CardContent className='space-y-4'>
-                <pre className='whitespace-pre-wrap'>{task.text}</pre>
-                <div className='space-x-4'>
+                <pre className='whitespace-pre-wrap bg-muted p-4 rounded-md'>{task.text}</pre>
+            </CardContent>
+            <CardFooter className='flex justify-between'>
+                <div className='flex gap-4 items-center'>
                     <Button variant='default'>
                         <Check />
                     </Button>
@@ -43,18 +45,18 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                         {isPending ? <LoadingSpinner size='xs' /> : <Trash2 />}
                     </Button>
                 </div>
-            </CardContent>
-            <CardFooter className='text-xs text-center opacity-50 flex-col items-start'>
-                <div className='flex items-center gap-2'>
-                    <Clock size={12} />
-                    <span>Created: {formatDate(task.createdAt)}</span>
-                </div>
-                {task.createdAt !== task.updatedAt && (
-                    <div className='flex items-center gap-2 mt-1'>
-                        <Pencil size={12} />
-                        <span>Updated: {formatDate(task.updatedAt)}</span>
+                <div className='text-xs text-center opacity-50 flex-col items-start'>
+                    <div className='flex items-center gap-2'>
+                        <Clock size={12} />
+                        <span>Created: {formatDate(task.createdAt)}</span>
                     </div>
-                )}
+                    {task.createdAt !== task.updatedAt && (
+                        <div className='flex items-center gap-2 mt-1'>
+                            <Pencil size={12} />
+                            <span>Updated: {formatDate(task.updatedAt)}</span>
+                        </div>
+                    )}
+                </div>
             </CardFooter>
         </Card>
     );
