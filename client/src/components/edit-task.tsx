@@ -12,6 +12,7 @@ import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogHeader,
@@ -36,6 +37,7 @@ const EditTask: React.FC<TaskItemProps> = ({ task }) => {
     const {
         handleSubmit,
         register,
+        reset,
         formState: { errors },
     } = useForm<z.infer<typeof createTaskSchema>>({
         resolver: zodResolver(createTaskSchema),
@@ -73,14 +75,14 @@ const EditTask: React.FC<TaskItemProps> = ({ task }) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger>
+            <DialogTrigger className='inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-secondary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2'>
                 <Pencil />
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Edit</DialogTitle>
-                    <DialogDescription>Edit task</DialogDescription>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <DialogTitle className='text-center'>Edit</DialogTitle>
+                    <DialogDescription>Current task</DialogDescription>
+                    <form className='flex flex-col gap-4' onSubmit={handleSubmit(onSubmit)}>
                         <Input type='hidden' {...register('user')} value={userId} />
                         <Input
                             disabled={isPending}
@@ -89,11 +91,23 @@ const EditTask: React.FC<TaskItemProps> = ({ task }) => {
                             placeholder='title'
                         />
                         {errors.title && <InputError>{errors.title.message}</InputError>}
-                        <Textarea disabled={isPending} {...register('text')} placeholder='text' />
+                        <Textarea
+                            rows={10}
+                            disabled={isPending}
+                            {...register('text')}
+                            placeholder='text'
+                        />
                         {errors.text && <InputError>{errors.text.message}</InputError>}
-                        <Button disabled={isPending} type='submit'>
-                            Save
-                        </Button>
+                        <div className='flex gap-4 justify-between'>
+                            <DialogClose asChild>
+                                <Button type='reset' onClick={() => reset()} variant='secondary'>
+                                    Cancel
+                                </Button>
+                            </DialogClose>
+                            <Button disabled={isPending} type='submit'>
+                                Save
+                            </Button>
+                        </div>
                     </form>
                 </DialogHeader>
             </DialogContent>
