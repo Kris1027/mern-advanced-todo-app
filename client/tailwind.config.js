@@ -53,6 +53,9 @@ export default {
                 footer: 'hsl(var(--footer))',
             },
         },
+        animation: {
+            'slower-spin': 'spin 2s linear infinite',
+        },
     },
     plugins: [require('tailwindcss-animate')],
 };

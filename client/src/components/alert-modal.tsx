@@ -15,10 +15,10 @@ import { Trash2 } from 'lucide-react';
 
 interface AlertModalProps {
     deleteTask: () => void;
-    isPending: boolean;
+    isDeleting: boolean;
 }
 
-const AlertModal: React.FC<AlertModalProps> = ({ deleteTask, isPending }) => {
+const AlertModal: React.FC<AlertModalProps> = ({ deleteTask, isDeleting }) => {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -36,7 +36,7 @@ const AlertModal: React.FC<AlertModalProps> = ({ deleteTask, isPending }) => {
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction onClick={() => deleteTask()}>
-                        {isPending ? <LoadingSpinner size='xs' /> : 'Continue'}
+                        {isDeleting ? <LoadingSpinner size='xs' /> : 'Continue'}
                     </AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>

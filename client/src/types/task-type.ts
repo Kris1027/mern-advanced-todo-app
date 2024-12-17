@@ -3,6 +3,7 @@ export interface TaskProps {
     user: string;
     title: string;
     text: string;
+    isComplete: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
