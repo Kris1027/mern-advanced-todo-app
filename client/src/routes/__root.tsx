@@ -22,7 +22,7 @@ function RootComponent() {
 
     return (
         <React.Fragment>
-            <div className='min-h-screen max-w-[1080px] mx-auto flex flex-col'>
+            <div className='min-h-screen max-w-[1080px] mx-auto flex flex-col px-2 md:px-4'>
                 {user && <Navbar />}
                 <main className='flex-grow flex justify-center'>
                     <Outlet />
