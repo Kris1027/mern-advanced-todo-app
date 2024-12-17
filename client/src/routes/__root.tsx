@@ -3,6 +3,7 @@ import axios from 'axios';
 import * as React from 'react';
 import Navbar from '@/components/nav-bar';
 import { Toaster } from '@/components/ui/toaster';
+import Footer from '@/components/footer';
 
 export const Route = createRootRoute({
     component: RootComponent,
@@ -21,9 +22,12 @@ function RootComponent() {
 
     return (
         <React.Fragment>
-            <div className='max-w-[1080px] mx-auto'>
+            <div className='min-h-screen max-w-[1080px] mx-auto flex flex-col'>
                 {user && <Navbar />}
-                <Outlet />
+                <main className='flex-grow flex justify-center'>
+                    <Outlet />
+                </main>
+                <Footer />
                 <Toaster />
             </div>
         </React.Fragment>

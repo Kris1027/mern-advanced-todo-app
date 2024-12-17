@@ -50,7 +50,7 @@ const LoginPage: React.FC = () => {
         mutate(values);
     }
     return (
-        <main className='w-full flex gap-10 min-h-screen justify-center items-center'>
+        <div className='flex flex-col md:flex-row justify-center items-center gap-10'>
             <Logo size='md' />
             <div className='w-[300px]'>
                 <h2 className='text-xl text-center py-4'>Stay Organized, Stay Productive</h2>
@@ -91,7 +91,7 @@ const LoginPage: React.FC = () => {
                     and start organizing your life!
                 </p>
             </div>
-        </main>
+        </div>
     );
 };
 

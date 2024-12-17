@@ -8,7 +8,7 @@ import ProfileImage from '@/components/profile-image';
 const ProfilePage: React.FC = () => {
     const user = useLoaderData({ from: '__root__' });
     return (
-        <Card>
+        <Card className='w-full flex-grow-0'>
             <CardHeader>
                 <CardTitle>User Profile</CardTitle>
                 <CardDescription>You can change here your profile settings</CardDescription>

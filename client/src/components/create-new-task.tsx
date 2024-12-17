@@ -70,7 +70,7 @@ const CreateNewTask: React.FC = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className='group relative inline-flex items-center px-4 py-2 border-2 border-transparent bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md hover:shadow-xl text-sm font-semibold'>
+            <DialogTrigger className='group relative inline-flex items-center px-4 py-2 border-2 border-transparent bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-xl overflow-hidden transform hover:scale-[1.02] transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-md hover:shadow-xl text-sm font-semibold w-52'>
                 <span className='absolute inset-0 bg-white bg-opacity-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></span>
                 <Plus className='mr-2 h-4 w-4 transform group-hover:rotate-90 transition-transform duration-300' />
                 Create New Task

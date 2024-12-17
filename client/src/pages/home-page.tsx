@@ -11,11 +11,11 @@ const HomePage: React.FC = () => {
     });
 
     return (
-        <main className='flex flex-col justify-center items-center gap-4'>
+        <div className='flex flex-col w-full gap-4'>
             <CreateNewTask />
             {isLoading && <LoadingSpinner size='xl' />}
             {tasks && <TaskList tasks={tasks.tasks} />}
-        </main>
+        </div>
     );
 };
 
