@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { Check, CheckCircle, Clock, Loader, Pencil } from 'lucide-react';
+import { CheckCircle, Clock, Loader, Pencil } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import type { TaskProps } from '@/types/task-type';
 import { formatDate } from '@/lib/utils';
@@ -46,7 +46,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                 <CardTitle
                     className={`text-2xl flex justify-center items-center gap-4 ${task.isComplete ? 'opacity-20' : ''}`}
                 >
-                    {task.isComplete && <Check />}
+                    {task.isComplete && <CheckCircle />}
                     {task.title}
                 </CardTitle>
             </CardHeader>
@@ -80,7 +80,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                         <div className='flex items-center gap-2 mt-1'>
                             {task.isComplete ? <CheckCircle size={12} /> : <Pencil size={12} />}
                             <span>
-                                {task.isComplete ? 'Completed' : 'Updated:'}{' '}
+                                {task.isComplete ? 'Completed:' : 'Updated:'}{' '}
                                 {formatDate(task.updatedAt)}
                             </span>
                         </div>
