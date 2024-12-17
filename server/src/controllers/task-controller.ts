@@ -23,6 +23,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
             user: req.user._id,
             title,
             text,
+            isComplete: false,
         });
 
         if (newTask) {
@@ -147,6 +148,54 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
         const updatedTask = await Task.findById(taskId);
         res.status(200).json({
             message: `Task of ${user.username} updated successfully`,
+            updatedTask,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+export const toggleTaskCompletion = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        if (!req.user || !req.user._id) {
+            const error: ErrorProps = new Error('User not logged in');
+            error.status = 401;
+            return next(error);
+        }
+
+        const userId = req.user._id;
+        const user = await User.findById(userId);
+
+        if (!user) {
+            const error: ErrorProps = new Error('User not found');
+            error.status = 404;
+            return next(error);
+        }
+
+        const taskId = req.params.id;
+        let task = await Task.findById(taskId);
+        if (!task) {
+            const error: ErrorProps = new Error('Task not found');
+            error.status = 404;
+            return next(error);
+        }
+
+        if (task.user.toString() !== userId.toString()) {
+            const error: ErrorProps = new Error('Not authorized to update this task');
+            error.status = 401;
+            return next(error);
+        }
+
+        const update = {
+            isComplete: !task.isComplete,
+        };
+
+        task = await Task.findByIdAndUpdate(taskId, update);
+        const updatedTask = await Task.findById(taskId);
+        res.status(200).json({
+            message: updatedTask?.isComplete
+                ? 'Task marked as completed'
+                : 'Task marked as incomplete',
             updatedTask,
         });
     } catch (error) {

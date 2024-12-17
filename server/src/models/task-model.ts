@@ -4,6 +4,7 @@ interface TaskProps extends Document {
     user: Types.ObjectId;
     title: string;
     text: string;
+    isComplete: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -22,6 +23,10 @@ const taskSchema = new mongoose.Schema<TaskProps>(
         text: {
             type: String,
             required: true,
+        },
+        isComplete: {
+            type: Boolean,
+            required: false,
         },
     },
     { timestamps: true }
