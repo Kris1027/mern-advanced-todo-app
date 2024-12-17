@@ -9,7 +9,7 @@ const Footer = () => {
                     href='https://www.linkedin.com/in/krzysztof-obarzanek/'
                     target='_blank'
                     rel='noopener noreferrer'
-                    className='text-primary hover:underline font-medium'
+                    className='text-footer hover:underline font-medium'
                 >
                     kris1027
                 </a>
