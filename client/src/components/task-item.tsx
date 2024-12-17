@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
-import { Check, Clock, Pencil, Trash2 } from 'lucide-react';
+import { Check, Clock, Pencil } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import type { TaskProps } from '@/types/task-type';
 import { formatDate } from '@/lib/utils';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import EditTask from '@/components/edit-task';
-import LoadingSpinner from '@/components/loading-spinner';
+import AlertModal from '@/components/alert-modal';
 
 export interface TaskItemProps {
     task: TaskProps;
@@ -41,9 +41,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                         <Check />
                     </Button>
                     <EditTask task={task} />
-                    <Button onClick={() => deleteTask()} variant='destructive'>
-                        {isPending ? <LoadingSpinner size='xs' /> : <Trash2 />}
-                    </Button>
+                    <AlertModal deleteTask={deleteTask} isPending={isPending} />
                 </div>
                 <div className='text-xs text-center opacity-50 flex-col items-start'>
                     <div className='flex items-center gap-2'>
