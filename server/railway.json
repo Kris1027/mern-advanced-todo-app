@@ -1,0 +1,7 @@
+{
+    "build": {
+        "builder": "node",
+        "buildCommand": "npm run build",
+        "startCommand": "node dist/app.js"
+    }
+}
