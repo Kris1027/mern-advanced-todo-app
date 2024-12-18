@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createTaskSchema } from '@/schemas/create-task-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { PlusCircle } from 'lucide-react';
+import { authApi } from '@/api/auth-api';
 import { toast } from '@/hooks/use-toast';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -19,8 +21,6 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { authApi } from '@/api/auth-api';
-import { PlusCircle } from 'lucide-react';
 
 const CreateNewTask: React.FC = () => {
     const queryClient = useQueryClient();

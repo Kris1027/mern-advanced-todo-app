@@ -1,10 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from '@tanstack/react-router';
-import axios, { AxiosError } from 'axios';
-import { UserPlus } from 'lucide-react';
+import axios, { type AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { UserPlus } from 'lucide-react';
 import { signupSchema } from '@/schemas/signup-schema';
 import { useToast } from '@/hooks/use-toast';
 import LoadingSpinner from '@/components/loading-spinner';

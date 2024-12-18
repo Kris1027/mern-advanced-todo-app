@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import CreateNewTask from '@/components/create-new-task';
 import { taskApi } from '@/api/task-api';
+import CreateNewTask from '@/components/create-new-task';
 import LoadingSpinner from '@/components/loading-spinner';
 import TaskList from '@/components/task-list';
 

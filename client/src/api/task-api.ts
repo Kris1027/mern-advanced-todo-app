@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
-import { TaskProps } from '@/types/task-type';
+import axios, { type AxiosResponse } from 'axios';
+import type { TaskProps } from '@/types/task-type';
 
 interface TaskResponse {
     tasks: TaskProps[];

@@ -1,6 +1,6 @@
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { LogIn } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';

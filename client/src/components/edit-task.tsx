@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Pencil } from 'lucide-react';
 import { createTaskSchema } from '@/schemas/create-task-schema';
 import { authApi } from '@/api/auth-api';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from '@/hooks/use-toast';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';

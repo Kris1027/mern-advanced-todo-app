@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from '@tanstack/react-router';
-import axios, { AxiosError } from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { LogOut } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui/button';
 
 const LogoutButton: React.FC = () => {
     const navigate = useNavigate();

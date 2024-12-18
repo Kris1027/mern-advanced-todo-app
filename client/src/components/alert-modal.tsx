@@ -1,3 +1,4 @@
+import { Trash2 } from 'lucide-react';
 import {
     AlertDialog,
     AlertDialogAction,
@@ -10,8 +11,7 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import LoadingSpinner from './loading-spinner';
-import { Trash2 } from 'lucide-react';
+import LoadingSpinner from '@/components/loading-spinner';
 
 interface AlertModalProps {
     deleteTask: () => void;

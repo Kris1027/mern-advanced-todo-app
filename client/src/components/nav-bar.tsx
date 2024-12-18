@@ -1,8 +1,8 @@
+import { Link } from '@tanstack/react-router';
 import Logo from '@/components/logo';
 import LogoutButton from '@/components/logout-button';
 import ProfileImage from '@/components/profile-image';
 import ThemeModeToggle from '@/components/theme-mode-toggle';
-import { Link } from '@tanstack/react-router';
 
 const Navbar: React.FC = () => {
     return (
