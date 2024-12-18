@@ -3,6 +3,7 @@ import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 import authRouter from './routes/auth-route';
 import taskRouter from './routes/task-route';
@@ -15,6 +16,11 @@ import startServer from './server';
 dotenv.config();
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, '..client/dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
