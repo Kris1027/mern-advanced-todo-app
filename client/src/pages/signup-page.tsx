@@ -73,6 +73,15 @@ const SignupPage: React.FC = () => {
                     <Input
                         disabled={isPending}
                         type='text'
+                        placeholder='full name'
+                        {...register('fullName', { required: true })}
+                    />
+                    {errors.fullName && (
+                        <p className='text-xs text-red-500'>{errors.fullName.message}</p>
+                    )}
+                    <Input
+                        disabled={isPending}
+                        type='text'
                         placeholder='email'
                         {...register('email', { required: true })}
                     />

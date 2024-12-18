@@ -6,7 +6,7 @@ import User from '../models/user-model';
 
 export const signupUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { username, email, password } = req.body;
+        const { username, fullName, email, password } = req.body;
 
         const existingUsername = await User.findOne({ username });
         const existingEmail = await User.findOne({ email });
@@ -28,6 +28,7 @@ export const signupUser = async (req: Request, res: Response, next: NextFunction
 
         const newUser = new User({
             username,
+            fullName,
             email,
             password: hashedPassword,
         });

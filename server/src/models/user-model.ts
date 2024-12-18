@@ -2,6 +2,7 @@ import mongoose, { Document } from 'mongoose';
 
 interface UserProps extends Document {
     username: string;
+    fullName: string;
     email: string;
     password: string;
     createdAt: Date;
@@ -22,6 +23,10 @@ const userSchema = new mongoose.Schema<UserProps>(
             type: String,
             required: true,
             unique: true,
+        },
+        fullName: {
+            type: String,
+            required: true,
         },
         email: {
             type: String,

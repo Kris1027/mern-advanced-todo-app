@@ -19,6 +19,8 @@ const ProfilePage: React.FC = () => {
                     <ProfileImage />
                     <Label htmlFor='username'>Username</Label>
                     <Input id='username' placeholder={user.user.username} />
+                    <Label htmlFor='full-name'>Full Name</Label>
+                    <Input id='full-name' placeholder={user.user.fullName} />
                     <Label>Email address</Label>
                     <Input id='email' placeholder={user.user.email} />
                     <div className='space-x-4'>
