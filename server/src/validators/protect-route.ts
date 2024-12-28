@@ -16,10 +16,7 @@ export const protectRoute = async (req: Request, res: Response, next: NextFuncti
             return next(error);
         }
 
-        const decoded = jwt.verify(
-            token,
-            process.env.JWT_SECRET as string
-        ) as JwtPayloadWithUserIdProps;
+        const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayloadWithUserIdProps;
         if (!decoded) {
             const error: ErrorProps = new Error('Unauthorized: Invalid token');
             error.status = 401;

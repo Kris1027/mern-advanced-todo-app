@@ -57,9 +57,7 @@ export const getUserTasks = async (req: Request, res: Response, next: NextFuncti
         const tasks = await Task.find({ user: user });
         res.status(200).json({
             message:
-                tasks.length > 0
-                    ? `Tasks of ${user.username} fetched successfully`
-                    : `${user.username} have no tasks`,
+                tasks.length > 0 ? `Tasks of ${user.username} fetched successfully` : `${user.username} have no tasks`,
             tasks,
         });
     } catch (error) {
@@ -193,9 +191,7 @@ export const toggleTaskCompletion = async (req: Request, res: Response, next: Ne
         task = await Task.findByIdAndUpdate(taskId, update);
         const updatedTask = await Task.findById(taskId);
         res.status(200).json({
-            message: updatedTask?.isComplete
-                ? 'Task marked as completed'
-                : 'Task marked as incomplete',
+            message: updatedTask?.isComplete ? 'Task marked as completed' : 'Task marked as incomplete',
             updatedTask,
         });
     } catch (error) {

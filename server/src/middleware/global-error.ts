@@ -4,12 +4,7 @@ export interface ErrorProps extends Error {
     status?: number;
 }
 
-const globalError: ErrorRequestHandler = (
-    err: ErrorProps,
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
+const globalError: ErrorRequestHandler = (err: ErrorProps, req: Request, res: Response, next: NextFunction) => {
     if (err.status) {
         res.status(err.status).json({ message: err.message });
     } else {

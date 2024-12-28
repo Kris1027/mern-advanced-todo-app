@@ -1,11 +1,5 @@
 import express from 'express';
-import {
-    createTask,
-    deleteTask,
-    getUserTasks,
-    toggleTaskCompletion,
-    updateTask,
-} from '../controllers/task-controller';
+import { createTask, deleteTask, getUserTasks, toggleTaskCompletion, updateTask } from '../controllers/task-controller';
 import { protectRoute } from '../validators/protect-route';
 import { validateSchema } from '../validators/validate-schema';
 import { validateTask } from '../validators/task-validator';
