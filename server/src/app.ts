@@ -31,4 +31,6 @@ app.use('/api/tasks', taskRouter);
 app.use(notFound);
 app.use(globalError);
 
-startServer(app);
+startServer(app).catch(() => {
+    /* Error handling is already implemented in startServer function */
+});
