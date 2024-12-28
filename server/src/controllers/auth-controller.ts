@@ -1,8 +1,8 @@
-import type { NextFunction, Request, Response } from 'express';
-import type { ErrorProps } from '../middleware/global-error';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user-model';
+import type { ErrorProps } from '../middleware/global-error';
+import type { NextFunction, Request, Response } from 'express';
 
 export const signupUser = async (req: Request, res: Response, next: NextFunction) => {
     try {

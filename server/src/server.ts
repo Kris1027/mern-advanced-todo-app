@@ -1,4 +1,4 @@
-import connectDB from './config/db.js';
+import connectDB from 'connections/db.js';
 import type { Application } from 'express';
 
 const startServer = async (app: Application) => {

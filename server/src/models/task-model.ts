@@ -1,4 +1,5 @@
-import mongoose, { Document, Types } from 'mongoose';
+import mongoose from 'mongoose';
+import type { Document, Types } from 'mongoose';
 
 interface TaskProps extends Document {
     user: Types.ObjectId;

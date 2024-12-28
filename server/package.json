@@ -7,8 +7,8 @@
         "start": "node dist/app.js",
         "build": "tsc",
         "dev": "tsx watch src/app.ts",
-        "lint": "eslint . --ext .ts",
-        "lint:fix": "eslint . --ext .ts --fix",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
         "clean": "rimraf dist",
         "prebuild": "npm run clean"
     },

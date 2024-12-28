@@ -1,7 +1,7 @@
-import type { NextFunction, Request, Response } from 'express';
-import type { ErrorProps } from '../middleware/global-error';
 import jwt from 'jsonwebtoken';
 import User from '../models/user-model';
+import type { ErrorProps } from '../middleware/global-error';
+import type { NextFunction, Request, Response } from 'express';
 
 interface JwtPayloadWithUserIdProps extends jwt.JwtPayload {
     userId: string;

@@ -1,7 +1,7 @@
-import type { NextFunction, Request, Response } from 'express';
-import type { ErrorProps } from '../middleware/global-error';
 import Task from '../models/task-model';
 import User from '../models/user-model';
+import type { ErrorProps } from '../middleware/global-error';
+import type { NextFunction, Request, Response } from 'express';
 
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -54,7 +54,7 @@ export const getUserTasks = async (req: Request, res: Response, next: NextFuncti
             return next(error);
         }
 
-        const tasks = await Task.find({ user: user });
+        const tasks = await Task.find({ user });
         res.status(200).json({
             message:
                 tasks.length > 0 ? `Tasks of ${user.username} fetched successfully` : `${user.username} have no tasks`,
