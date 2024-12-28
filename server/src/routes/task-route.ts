@@ -6,8 +6,8 @@ import {
     toggleTaskCompletion,
     updateTask,
 } from '../controllers/task-controller';
-import { protectRoute } from '../utils/protect-route';
-import { validateSchema } from '../utils/validate-schema';
+import { protectRoute } from '../validators/protect-route';
+import { validateSchema } from '../validators/validate-schema';
 import { validateTask } from '../validators/task-validator';
 
 const router = express.Router();

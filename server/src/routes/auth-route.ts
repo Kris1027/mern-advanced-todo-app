@@ -1,7 +1,7 @@
 import express from 'express';
 import { getUserData, loginUser, logoutUser, signupUser } from '../controllers/auth-controller';
-import { protectRoute } from '../utils/protect-route';
-import { validateSchema } from '../utils/validate-schema';
+import { protectRoute } from '../validators/protect-route';
+import { validateSchema } from '../validators/validate-schema';
 import { validateUser } from '../validators/auth-validator';
 
 const router = express.Router();
