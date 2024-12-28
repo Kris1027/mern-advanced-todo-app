@@ -3,12 +3,12 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import globalError from './middleware/global-error';
-import notFound from './middleware/not-found';
-import authRouter from './routes/auth-route';
-import taskRouter from './routes/task-route';
+import globalError from './middleware/global-error.js';
+import notFound from './middleware/not-found.js';
+import authRouter from './routes/auth-route.js';
+import taskRouter from './routes/task-route.js';
 
-import startServer from './server';
+import startServer from './server.js';
 
 dotenv.config();
 

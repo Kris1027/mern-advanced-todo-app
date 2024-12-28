@@ -1,5 +1,5 @@
-import { Application } from 'express';
-import connectDB from './config/db';
+import connectDB from './config/db.js';
+import type { Application } from 'express';
 
 const startServer = async (app: Application) => {
     const PORT = process.env.PORT || 3000;

@@ -2,7 +2,6 @@ import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
 import _import from 'eslint-plugin-import';
 import checkFile from 'eslint-plugin-check-file';
 import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import typescriptEslint_eslintPlugin from '@typescript-eslint/eslint-plugin';
 import prettier from 'eslint-plugin-prettier';
 import sortClassMembers from 'eslint-plugin-sort-class-members';
 import jsdoc from 'eslint-plugin-jsdoc';
@@ -40,13 +39,13 @@ export default [
         files: ['src/**/*.ts', 'src/**/**.*.json'],
     })),
     {
-        files: ['src/**/*.ts', 'ssrc/**/**.*.json'],
+        files: ['src/**/*.ts', 'src/**/**.*.json'],
 
         plugins: {
             import: fixupPluginRules(_import),
             'check-file': checkFile,
+            '@typescript-eslint': fixupPluginRules(typescriptEslint),
             prettier: fixupPluginRules(prettier),
-            '@typescript-eslint': fixupPluginRules(typescriptEslint_eslintPlugin),
             'sort-class-members': sortClassMembers,
             jsdoc,
         },

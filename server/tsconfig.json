@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
-        "module": "ESNext",
+        "target": "ES2022",
+        "module": "NodeNext",
         "types": ["node"],
         "lib": ["ES2022"],
         "allowJs": false,
@@ -24,7 +24,7 @@
         "inlineSources": true,
         "isolatedModules": true,
         "moduleDetection": "force",
-        "moduleResolution": "Node",
+        "moduleResolution": "NodeNext",
         "noEmit": false,
         "noEmitOnError": false,
         "noFallthroughCasesInSwitch": true,
@@ -36,8 +36,8 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noPropertyAccessFromIndexSignature": false,
-        "outDir": "build",
-        "rootDir": ".",
+        "outDir": "dist",
+        "rootDir": "src",
         "preserveSymlinks": true,
         "pretty": true,
         "preserveConstEnums": true,
@@ -53,5 +53,5 @@
         "useDefineForClassFields": false,
         "useUnknownInCatchVariables": true
     },
-    "include": ["src"]
+    "include": ["src/**/*"]
 }
