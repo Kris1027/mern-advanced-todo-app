@@ -2,9 +2,14 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
+import type { ILoginRequestBody, ISignupRequestBody } from 'types/auth-types.js';
 import type { IErrorProps } from 'types/global.js';
 
-export const signupUser = async (req: Request, res: Response, next: NextFunction) => {
+export const signupUser = async (
+    req: Request<object, object, ISignupRequestBody>,
+    res: Response,
+    next: NextFunction,
+): Promise<void> => {
     try {
         const { username, fullName, email, password } = req.body;
 
@@ -14,13 +19,14 @@ export const signupUser = async (req: Request, res: Response, next: NextFunction
         if (existingUsername) {
             const error: IErrorProps = new Error('Username is already taken');
             error.status = 400;
-            return next(error);
+            next(error);
+            return;
         }
 
         if (existingEmail) {
             const error: IErrorProps = new Error('Email address is already taken');
             error.status = 400;
-            return next(error);
+            next(error);
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -48,14 +54,14 @@ export const signupUser = async (req: Request, res: Response, next: NextFunction
         } else {
             const error: IErrorProps = new Error('Invalid user data');
             error.status = 400;
-            return next(error);
+            next(error);
         }
     } catch (error) {
         next(error);
     }
 };
 
-export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
+export const loginUser = async (req: Request<object, object, ILoginRequestBody>, res: Response, next: NextFunction) => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
