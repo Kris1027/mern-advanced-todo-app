@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const validateUser = z.object({
+const validateUser = z.object({
     username: z
         .string()
         .trim()
@@ -16,3 +16,5 @@ export const validateUser = z.object({
         .min(6, 'Password must be at least 6 characters long')
         .max(20, 'Password can be a maximum 20 characters long'),
 });
+
+export default validateUser;

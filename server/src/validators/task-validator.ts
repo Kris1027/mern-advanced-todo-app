@@ -1,6 +1,6 @@
 import z from 'zod';
 
-export const validateTask = z.object({
+const validateTask = z.object({
     title: z
         .string()
         .trim()
@@ -12,3 +12,5 @@ export const validateTask = z.object({
         .min(6, 'Text must be at least 6 characters long')
         .max(500, 'Text can be a maximum 500 characters long'),
 });
+
+export default validateTask;

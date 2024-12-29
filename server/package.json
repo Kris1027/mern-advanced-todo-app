@@ -7,7 +7,7 @@
         "start": "node dist/app.js",
         "build": "tsc",
         "dev": "tsx watch src/app.ts",
-        "lint": "NODE_ENV=development eslint -c eslint.config.mjs . --fix"
+        "lint": "eslint ."
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
