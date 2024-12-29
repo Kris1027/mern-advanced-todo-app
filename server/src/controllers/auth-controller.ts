@@ -110,12 +110,13 @@ export const logoutUser = (req: Request, res: Response, next: NextFunction): voi
     }
 };
 
-export const getUserData = async (req: Request, res: Response, next: NextFunction) => {
+export const getUserData = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         if (!req.user || !req.user._id) {
             const error: IErrorProps = new Error('User not logged in');
             error.status = 404;
-            return next(error);
+            next(error);
+            return;
         }
         const user = await User.findById(req.user._id).select('-password');
         res.status(200).json({ message: 'User data fetched successfully', user });
