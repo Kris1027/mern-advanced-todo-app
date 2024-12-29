@@ -8,7 +8,7 @@ import {
 } from '../controllers/task-controller.js';
 import protectRoute from '../validators/protect-route.js';
 import validateTask from '../validators/task-validator.js';
-import { validateSchema } from '../validators/validate-schema.js';
+import validateSchema from '../validators/validate-schema.js';
 
 const router = express.Router();
 
