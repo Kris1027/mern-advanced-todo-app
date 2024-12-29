@@ -171,12 +171,13 @@ export const updateTask = async (
     }
 };
 
-export const toggleTaskCompletion = async (req: Request, res: Response, next: NextFunction) => {
+export const toggleTaskCompletion = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         if (!req.user || !req.user._id) {
             const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
-            return next(error);
+            next(error);
+            return;
         }
 
         const userId = req.user._id;
@@ -185,7 +186,8 @@ export const toggleTaskCompletion = async (req: Request, res: Response, next: Ne
         if (!user) {
             const error: IErrorProps = new Error('User not found');
             error.status = 404;
-            return next(error);
+            next(error);
+            return;
         }
 
         const taskId = req.params.id;
@@ -193,13 +195,15 @@ export const toggleTaskCompletion = async (req: Request, res: Response, next: Ne
         if (!task) {
             const error: IErrorProps = new Error('Task not found');
             error.status = 404;
-            return next(error);
+            next(error);
+            return;
         }
 
         if (task.user.toString() !== userId.toString()) {
             const error: IErrorProps = new Error('Not authorized to update this task');
             error.status = 401;
-            return next(error);
+            next(error);
+            return;
         }
 
         const update = {
