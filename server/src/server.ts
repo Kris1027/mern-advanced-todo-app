@@ -1,28 +1,25 @@
 import connectDB from 'connections/db.js';
 import type { Application } from 'express';
 
-const startServer = async (app: Application) => {
-    const PORT = process.env.PORT || 3000;
+const startServer = async (app: Application): Promise<void> => {
+    const PORT = process.env.PORT ?? 3000;
 
     try {
         await connectDB();
 
         app.on('error', (error) => {
-            console.error(`Express app error: ${error}`);
-            process.exit(1);
+            throw new Error(`Express app error: ${String(error)}`);
         });
 
         const server = app.listen(PORT, () => {
-            console.log(`Server is running at http://localhost:${PORT}`);
+            console.info(`Server is running at http://localhost:${PORT}`);
         });
 
         server.on('error', (error) => {
-            console.error(`Server start error: ${error}`);
-            process.exit(1);
+            throw new Error(`Server start error: ${error}`);
         });
     } catch (error) {
-        console.error(`Failed to start server ${(error as Error).message}`);
-        process.exit(1);
+        throw new Error(`Failed to start server ${(error as Error).message}`);
     }
 };
 
