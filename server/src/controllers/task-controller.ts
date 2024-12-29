@@ -2,10 +2,10 @@ import Task from '../models/task-model.js';
 import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
 import type { IErrorProps } from 'types/global.js';
-import type { ICreateTaskRequestBody } from 'types/task-types.js';
+import type { ITaskRequestBody } from 'types/task-types.js';
 
 export const createTask = async (
-    req: Request<object, object, ICreateTaskRequestBody>,
+    req: Request<object, object, ITaskRequestBody>,
     res: Response,
     next: NextFunction,
 ): Promise<void> => {
@@ -110,19 +110,25 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-export const updateTask = async (req: Request, res: Response, next: NextFunction) => {
+export const updateTask = async (
+    req: Request<{ id: string }, object, ITaskRequestBody>,
+    res: Response,
+    next: NextFunction,
+): Promise<void> => {
     try {
         const { title, text } = req.body;
         if (!title || !text) {
             const error: IErrorProps = new Error('Inputs cannot be empty');
             error.status = 400;
-            return next(error);
+            next(error);
+            return;
         }
 
         if (!req.user || !req.user._id) {
             const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
-            return next(error);
+            next(error);
+            return;
         }
 
         const userId = req.user._id;
@@ -130,20 +136,23 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
         if (!user) {
             const error: IErrorProps = new Error('User not found');
             error.status = 404;
-            return next(error);
+            next(error);
+            return;
         }
         const taskId = req.params.id;
         let task = await Task.findById(taskId);
         if (!task) {
             const error: IErrorProps = new Error('Task not found');
             error.status = 404;
-            return next(error);
+            next(error);
+            return;
         }
 
         if (task.user.toString() !== userId.toString()) {
             const error: IErrorProps = new Error('Not authorized to update this task');
             error.status = 401;
-            return next(error);
+            next(error);
+            return;
         }
 
         const update = {

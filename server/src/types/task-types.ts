@@ -1,4 +1,4 @@
-export interface ICreateTaskRequestBody {
+export interface ITaskRequestBody {
     title: string;
     text: string;
 }
