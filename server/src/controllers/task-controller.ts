@@ -2,21 +2,28 @@ import Task from '../models/task-model.js';
 import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
 import type { IErrorProps } from 'types/global.js';
+import type { ICreateTaskRequestBody } from 'types/task-types.js';
 
-export const createTask = async (req: Request, res: Response, next: NextFunction) => {
+export const createTask = async (
+    req: Request<object, object, ICreateTaskRequestBody>,
+    res: Response,
+    next: NextFunction,
+): Promise<void> => {
     try {
         const { title, text } = req.body;
 
         if (!title || !text) {
             const error: IErrorProps = new Error('Inputs cannot be empty');
             error.status = 400;
-            return next(error);
+            next(error);
+            return;
         }
 
         if (!req.user || !req.user._id) {
             const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
-            return next(error);
+            next(error);
+            return;
         }
 
         const newTask = new Task({
@@ -29,10 +36,6 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
         if (newTask) {
             await newTask.save();
             res.status(201).json({ message: 'Task created successfully', newTask });
-        } else {
-            const error: IErrorProps = new Error('Invalid task data');
-            error.status = 400;
-            return next(error);
         }
     } catch (error) {
         next(error);
