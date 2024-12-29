@@ -1,14 +1,6 @@
 import mongoose from 'mongoose';
 import type { IUserProps } from 'types/model-types.js';
 
-declare global {
-    namespace Express {
-        interface Request {
-            user?: UserProps;
-        }
-    }
-}
-
 const userSchema = new mongoose.Schema<IUserProps>(
     {
         username: {

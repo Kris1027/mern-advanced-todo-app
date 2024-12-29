@@ -17,3 +17,9 @@ export interface IUserProps extends Document {
     createdAt: Date;
     updatedAt: Date;
 }
+
+declare module 'express' {
+    interface Request {
+        user?: IUserProps;
+    }
+}

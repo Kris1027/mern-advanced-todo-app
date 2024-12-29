@@ -383,6 +383,10 @@ export default [
                         regex: '^I[A-Z]',
                         match: true,
                     },
+                    filter: {
+                        regex: '^(Request|Response)$',
+                        match: false,
+                    },
                 },
                 {
                     selector: 'enum',
