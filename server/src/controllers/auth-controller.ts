@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import User from '../models/user-model';
-import type { ErrorProps } from '../middleware/global-error';
+import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
+import type { IErrorProps } from 'types/global.js';
 
 export const signupUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -12,13 +12,13 @@ export const signupUser = async (req: Request, res: Response, next: NextFunction
         const existingEmail = await User.findOne({ email });
 
         if (existingUsername) {
-            const error: ErrorProps = new Error('Username is already taken');
+            const error: IErrorProps = new Error('Username is already taken');
             error.status = 400;
             return next(error);
         }
 
         if (existingEmail) {
-            const error: ErrorProps = new Error('Email address is already taken');
+            const error: IErrorProps = new Error('Email address is already taken');
             error.status = 400;
             return next(error);
         }
@@ -46,7 +46,7 @@ export const signupUser = async (req: Request, res: Response, next: NextFunction
             await newUser.save();
             res.status(201).json({ message: 'User created successfully' });
         } else {
-            const error: ErrorProps = new Error('Invalid user data');
+            const error: IErrorProps = new Error('Invalid user data');
             error.status = 400;
             return next(error);
         }
@@ -60,14 +60,14 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         const { username, password } = req.body;
         const user = await User.findOne({ username });
         if (!user) {
-            const error: ErrorProps = new Error('User not found');
+            const error: IErrorProps = new Error('User not found');
             error.status = 404;
             return next(error);
         }
 
         const token = req.cookies.jwt;
         if (token) {
-            const error: ErrorProps = new Error('User is already logged in');
+            const error: IErrorProps = new Error('User is already logged in');
             error.status = 401;
             return next(error);
         }
@@ -75,7 +75,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
         const isPasswordValid = await bcrypt.compare(password, user?.password || '');
 
         if (!isPasswordValid) {
-            const error: ErrorProps = new Error('Invalid password');
+            const error: IErrorProps = new Error('Invalid password');
             error.status = 404;
             return next(error);
         } else {
@@ -106,7 +106,7 @@ export const logoutUser = async (req: Request, res: Response, next: NextFunction
 export const getUserData = async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (!req.user || !req.user._id) {
-            const error: ErrorProps = new Error('User not logged in');
+            const error: IErrorProps = new Error('User not logged in');
             error.status = 404;
             return next(error);
         }

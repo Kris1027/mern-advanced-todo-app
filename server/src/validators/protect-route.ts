@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user-model';
-import type { ErrorProps } from '../middleware/global-error';
+import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
+import type { IErrorProps } from 'types/global.js';
 
 interface JwtPayloadWithUserIdProps extends jwt.JwtPayload {
     userId: string;
@@ -11,21 +11,21 @@ export const protectRoute = async (req: Request, res: Response, next: NextFuncti
     try {
         const token = req.cookies.jwt;
         if (!token) {
-            const error: ErrorProps = new Error('Unauthorized: No token provided');
+            const error: IErrorProps = new Error('Unauthorized: No token provided');
             error.status = 401;
             return next(error);
         }
 
         const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as JwtPayloadWithUserIdProps;
         if (!decoded) {
-            const error: ErrorProps = new Error('Unauthorized: Invalid token');
+            const error: IErrorProps = new Error('Unauthorized: Invalid token');
             error.status = 401;
             return next(error);
         }
 
         const user = await User.findById(decoded.userId);
         if (!user) {
-            const error: ErrorProps = new Error('Unauthorized: User not found');
+            const error: IErrorProps = new Error('Unauthorized: User not found');
             error.status = 401;
             return next(error);
         }

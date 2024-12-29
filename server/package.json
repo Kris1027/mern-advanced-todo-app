@@ -7,10 +7,7 @@
         "start": "node dist/app.js",
         "build": "tsc",
         "dev": "tsx watch src/app.ts",
-        "lint": "eslint .",
-        "lint:fix": "eslint . --fix",
-        "clean": "rimraf dist",
-        "prebuild": "npm run clean"
+        "lint": "NODE_ENV=development eslint -c eslint.config.mjs . --fix"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",

@@ -1,20 +1,20 @@
-import Task from '../models/task-model';
-import User from '../models/user-model';
-import type { ErrorProps } from '../middleware/global-error';
+import Task from '../models/task-model.js';
+import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
+import type { IErrorProps } from 'types/global.js';
 
 export const createTask = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { title, text } = req.body;
 
         if (!title || !text) {
-            const error: ErrorProps = new Error('Inputs cannot be empty');
+            const error: IErrorProps = new Error('Inputs cannot be empty');
             error.status = 400;
             return next(error);
         }
 
         if (!req.user || !req.user._id) {
-            const error: ErrorProps = new Error('User not logged in');
+            const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
             return next(error);
         }
@@ -30,7 +30,7 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
             await newTask.save();
             res.status(201).json({ message: 'Task created successfully', newTask });
         } else {
-            const error: ErrorProps = new Error('Invalid task data');
+            const error: IErrorProps = new Error('Invalid task data');
             error.status = 400;
             return next(error);
         }
@@ -42,14 +42,14 @@ export const createTask = async (req: Request, res: Response, next: NextFunction
 export const getUserTasks = async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (!req.user || !req.user._id) {
-            const error: ErrorProps = new Error('User not logged in');
+            const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
             return next(error);
         }
 
         const user = await User.findById(req.user._id);
         if (!user) {
-            const error: ErrorProps = new Error('User not found');
+            const error: IErrorProps = new Error('User not found');
             error.status = 404;
             return next(error);
         }
@@ -69,13 +69,13 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
     try {
         const task = await Task.findById(req.params.id);
         if (!task) {
-            const error: ErrorProps = new Error('Task not found');
+            const error: IErrorProps = new Error('Task not found');
             error.status = 404;
             return next(error);
         }
 
         if (!req.user || !req.user._id) {
-            const error: ErrorProps = new Error('User not logged in');
+            const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
             return next(error);
         }
@@ -83,13 +83,13 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
         const userId = req.user._id;
         const user = await User.findById(userId);
         if (!user) {
-            const error: ErrorProps = new Error('User not found');
+            const error: IErrorProps = new Error('User not found');
             error.status = 404;
             return next(error);
         }
 
         if (task.user.toString() !== userId.toString()) {
-            const error: ErrorProps = new Error('Not authorized to delete this task');
+            const error: IErrorProps = new Error('Not authorized to delete this task');
             error.status = 401;
             return next(error);
         }
@@ -105,13 +105,13 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
     try {
         const { title, text } = req.body;
         if (!title || !text) {
-            const error: ErrorProps = new Error('Inputs cannot be empty');
+            const error: IErrorProps = new Error('Inputs cannot be empty');
             error.status = 400;
             return next(error);
         }
 
         if (!req.user || !req.user._id) {
-            const error: ErrorProps = new Error('User not logged in');
+            const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
             return next(error);
         }
@@ -119,20 +119,20 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
         const userId = req.user._id;
         const user = await User.findById(userId);
         if (!user) {
-            const error: ErrorProps = new Error('User not found');
+            const error: IErrorProps = new Error('User not found');
             error.status = 404;
             return next(error);
         }
         const taskId = req.params.id;
         let task = await Task.findById(taskId);
         if (!task) {
-            const error: ErrorProps = new Error('Task not found');
+            const error: IErrorProps = new Error('Task not found');
             error.status = 404;
             return next(error);
         }
 
         if (task.user.toString() !== userId.toString()) {
-            const error: ErrorProps = new Error('Not authorized to update this task');
+            const error: IErrorProps = new Error('Not authorized to update this task');
             error.status = 401;
             return next(error);
         }
@@ -156,7 +156,7 @@ export const updateTask = async (req: Request, res: Response, next: NextFunction
 export const toggleTaskCompletion = async (req: Request, res: Response, next: NextFunction) => {
     try {
         if (!req.user || !req.user._id) {
-            const error: ErrorProps = new Error('User not logged in');
+            const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
             return next(error);
         }
@@ -165,7 +165,7 @@ export const toggleTaskCompletion = async (req: Request, res: Response, next: Ne
         const user = await User.findById(userId);
 
         if (!user) {
-            const error: ErrorProps = new Error('User not found');
+            const error: IErrorProps = new Error('User not found');
             error.status = 404;
             return next(error);
         }
@@ -173,13 +173,13 @@ export const toggleTaskCompletion = async (req: Request, res: Response, next: Ne
         const taskId = req.params.id;
         let task = await Task.findById(taskId);
         if (!task) {
-            const error: ErrorProps = new Error('Task not found');
+            const error: IErrorProps = new Error('Task not found');
             error.status = 404;
             return next(error);
         }
 
         if (task.user.toString() !== userId.toString()) {
-            const error: ErrorProps = new Error('Not authorized to update this task');
+            const error: IErrorProps = new Error('Not authorized to update this task');
             error.status = 401;
             return next(error);
         }

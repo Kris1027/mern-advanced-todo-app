@@ -1,10 +1,7 @@
-import type { ErrorRequestHandler, NextFunction, Request, Response } from 'express';
+import type { ErrorRequestHandler, Request, Response } from 'express';
+import type { IErrorProps } from 'types/global.js';
 
-export interface ErrorProps extends Error {
-    status?: number;
-}
-
-const globalError: ErrorRequestHandler = (err: ErrorProps, req: Request, res: Response, next: NextFunction) => {
+const globalError: ErrorRequestHandler = (err: IErrorProps, req: Request, res: Response) => {
     if (err.status) {
         res.status(err.status).json({ message: err.message });
     } else {
