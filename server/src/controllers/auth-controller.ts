@@ -51,50 +51,51 @@ export const signupUser = async (
 
             await newUser.save();
             res.status(201).json({ message: 'User created successfully' });
-        } else {
-            const error: IErrorProps = new Error('Invalid user data');
-            error.status = 400;
-            next(error);
         }
     } catch (error) {
         next(error);
     }
 };
 
-export const loginUser = async (req: Request<object, object, ILoginRequestBody>, res: Response, next: NextFunction) => {
+export const loginUser = async (
+    req: Request<object, object, ILoginRequestBody>,
+    res: Response,
+    next: NextFunction,
+): Promise<void> => {
     try {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
         if (!user) {
             const error: IErrorProps = new Error('User not found');
             error.status = 404;
-            return next(error);
+            next(error);
+            return;
         }
 
-        const token = req.cookies.jwt;
+        let token: string | undefined = (req.cookies as Record<string, string>).jwt;
         if (token) {
             const error: IErrorProps = new Error('User is already logged in');
             error.status = 401;
-            return next(error);
+            next(error);
         }
 
-        const isPasswordValid = await bcrypt.compare(password, user?.password || '');
+        const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
             const error: IErrorProps = new Error('Invalid password');
             error.status = 404;
-            return next(error);
-        } else {
-            const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string);
-            res.cookie('jwt', token, {
-                maxAge: 24 * 60 * 60 * 1000,
-                httpOnly: true,
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV !== 'development',
-            });
-
-            res.status(200).json({ message: 'User logged in successfully' });
+            next(error);
         }
+
+        token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string);
+        res.cookie('jwt', token, {
+            maxAge: 24 * 60 * 60 * 1000,
+            httpOnly: true,
+            sameSite: 'strict',
+            secure: process.env.NODE_ENV !== 'development',
+        });
+
+        res.status(200).json({ message: 'User logged in successfully' });
     } catch (error) {
         next(error);
     }
