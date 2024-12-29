@@ -10,6 +10,7 @@ export interface ITaskProps extends Document {
 }
 
 export interface IUserProps extends Document {
+    _id: Types.ObjectId;
     username: string;
     fullName: string;
     email: string;
