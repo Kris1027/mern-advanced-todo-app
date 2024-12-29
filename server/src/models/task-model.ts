@@ -1,16 +1,7 @@
 import mongoose from 'mongoose';
-import type { Document, Types } from 'mongoose';
+import type { ITaskProps } from 'types/model-types.js';
 
-interface TaskProps extends Document {
-    user: Types.ObjectId;
-    title: string;
-    text: string;
-    isComplete: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-}
-
-const taskSchema = new mongoose.Schema<TaskProps>(
+const taskSchema = new mongoose.Schema<ITaskProps>(
     {
         user: {
             type: mongoose.Schema.Types.ObjectId,

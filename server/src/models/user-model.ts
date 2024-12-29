@@ -1,14 +1,5 @@
 import mongoose from 'mongoose';
-import type { Document } from 'mongoose';
-
-interface UserProps extends Document {
-    username: string;
-    fullName: string;
-    email: string;
-    password: string;
-    createdAt: Date;
-    updatedAt: Date;
-}
+import type { IUserProps } from 'types/model-types.js';
 
 declare global {
     namespace Express {
@@ -18,7 +9,7 @@ declare global {
     }
 }
 
-const userSchema = new mongoose.Schema<UserProps>(
+const userSchema = new mongoose.Schema<IUserProps>(
     {
         username: {
             type: String,
