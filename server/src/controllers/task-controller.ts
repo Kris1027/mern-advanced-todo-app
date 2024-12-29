@@ -42,19 +42,21 @@ export const createTask = async (
     }
 };
 
-export const getUserTasks = async (req: Request, res: Response, next: NextFunction) => {
+export const getUserTasks = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         if (!req.user || !req.user._id) {
             const error: IErrorProps = new Error('User not logged in');
             error.status = 401;
-            return next(error);
+            next(error);
+            return;
         }
 
         const user = await User.findById(req.user._id);
         if (!user) {
             const error: IErrorProps = new Error('User not found');
             error.status = 404;
-            return next(error);
+            next(error);
+            return;
         }
 
         const tasks = await Task.find({ user });
