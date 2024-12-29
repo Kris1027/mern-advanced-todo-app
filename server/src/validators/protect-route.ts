@@ -7,7 +7,7 @@ interface JwtPayloadWithUserIdProps extends jwt.JwtPayload {
     userId: string;
 }
 
-export const protectRoute = async (req: Request, res: Response, next: NextFunction) => {
+const protectRoute = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const token = req.cookies.jwt;
         if (!token) {
@@ -36,3 +36,5 @@ export const protectRoute = async (req: Request, res: Response, next: NextFuncti
         next(error);
     }
 };
+
+export default protectRoute;
