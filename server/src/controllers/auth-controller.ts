@@ -77,6 +77,7 @@ export const loginUser = async (
             const error: IErrorProps = new Error('User is already logged in');
             error.status = 401;
             next(error);
+            return;
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -85,6 +86,7 @@ export const loginUser = async (
             const error: IErrorProps = new Error('Invalid password');
             error.status = 404;
             next(error);
+            return;
         }
 
         token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string);
