@@ -1,20 +1,19 @@
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@tanstack/react-query';
-import axios, { type AxiosError } from 'axios';
+import axios from 'axios';
 import { LogIn } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { loginSchema } from '@/schemas/login-schema';
-import { useToast } from '@/hooks/use-toast';
 import LoadingSpinner from '@/components/loading-spinner';
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import toast from 'react-hot-toast';
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
-    const { toast } = useToast();
 
     const {
         handleSubmit,
@@ -31,18 +30,12 @@ const LoginPage: React.FC = () => {
             return res.data;
         },
         onSuccess: (data) => {
-            toast({ title: data.message, variant: 'positive' });
+            toast.success(data.message);
             navigate({ to: '/' });
             reset();
         },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast({
-                title:
-                    error.response?.data?.message ||
-                    error.message ||
-                    'An unexpected error occurred',
-                variant: 'destructive',
-            });
+        onError: (error) => {
+            toast.error(error.message);
         },
     });
 

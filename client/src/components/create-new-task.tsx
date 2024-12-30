@@ -1,13 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { createTaskSchema } from '@/schemas/create-task-schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusCircle } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { authApi } from '@/api/auth-api';
-import { toast } from '@/hooks/use-toast';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import {
@@ -49,19 +49,13 @@ const CreateNewTask: React.FC = () => {
             return res.data;
         },
         onSuccess: (data) => {
-            toast({ title: data.message, variant: 'positive' });
+            toast.success(data.message);
             reset();
             setOpen(false);
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast({
-                title:
-                    error.response?.data?.message ||
-                    error.message ||
-                    'An unexpected error occurred',
-                variant: 'destructive',
-            });
+        onError: (error) => {
+            toast.error(error.message);
         },
     });
 

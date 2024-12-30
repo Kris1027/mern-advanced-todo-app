@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { CheckCircle, Clock, Loader, Pencil } from 'lucide-react';
-import { toast } from '@/hooks/use-toast';
+import toast from 'react-hot-toast';
 import type { TaskProps } from '@/types/task-type';
 import { formatDate } from '@/lib/utils';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -23,7 +23,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             return res.data;
         },
         onSuccess: (data) => {
-            toast({ title: data.message, variant: 'positive' });
+            toast(data.message);
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
     });
@@ -35,7 +35,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             return res.data;
         },
         onSuccess: (data) => {
-            toast({ title: data.message, variant: 'positive' });
+            if (data.message === 'Task marked as completed') {
+                toast.success(data.message);
+            } else {
+                toast.error(data.message);
+            }
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
     });

@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios, { type AxiosError } from 'axios';
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Pencil } from 'lucide-react';
 import { createTaskSchema } from '@/schemas/create-task-schema';
 import { authApi } from '@/api/auth-api';
-import { toast } from '@/hooks/use-toast';
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,6 +21,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { TaskItemProps } from '@/components/task-item';
+import toast from 'react-hot-toast';
 
 const EditTask: React.FC<TaskItemProps> = ({ task }) => {
     const queryClient = useQueryClient();
@@ -54,18 +54,12 @@ const EditTask: React.FC<TaskItemProps> = ({ task }) => {
             return res.data;
         },
         onSuccess: (data) => {
-            toast({ title: data.message, variant: 'positive' });
+            toast.success(data.message);
             setOpen(false);
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast({
-                title:
-                    error.response?.data?.message ||
-                    error.message ||
-                    'An unexpected error occurred',
-                variant: 'destructive',
-            });
+        onError: (error) => {
+            toast.error(error.message);
         },
     });
 
