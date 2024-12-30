@@ -1,4 +1,6 @@
 {
+    "name": "task-tango-client",
+    "description": "Frontend client for Task Tango application",
     "type": "module",
     "scripts": {
         "dev": "vite",

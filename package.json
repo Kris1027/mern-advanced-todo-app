@@ -1,5 +1,7 @@
 {
-    "name": "mern-advanced-todo-app",
+    "name": "task-tango",
+    "version": "0.1.0",
+    "description": "Advanced MERN stack todo app - Task Tango",
     "workspaces": [
         "client",
         "server"

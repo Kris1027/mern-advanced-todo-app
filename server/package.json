@@ -1,13 +1,12 @@
 {
-    "name": "mern-advanced-todo-app-server",
-    "version": "1.0.0",
-    "description": "Backend server for MERN Todo application",
+    "name": "task-tango-server",
+    "description": "Backend server for Task Tango application",
     "type": "module",
     "scripts": {
         "start": "node dist/app.js",
         "build": "tsc",
         "dev": "tsx watch src/app.ts",
-        "lint": "eslint ."
+        "lint": "eslint . --fix"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
