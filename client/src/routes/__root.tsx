@@ -1,9 +1,9 @@
 import { Outlet, createRootRoute, useLoaderData } from '@tanstack/react-router';
 import axios from 'axios';
 import * as React from 'react';
-import Navbar from '@/components/nav-bar';
+import Navbar from '@/components/layout/nav-bar';
 import { Toaster } from 'react-hot-toast';
-import Footer from '@/components/footer';
+import Footer from '@/components/layout/footer';
 
 export const Route = createRootRoute({
     component: RootComponent,
