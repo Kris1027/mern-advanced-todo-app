@@ -13,7 +13,7 @@ interface IJwtPayloadWithUserIdProps extends jwt.JwtPayload {
     userId: string;
 }
 
-const protectRoute = async (req: IRequestWithCookies, res: Response, next: NextFunction): Promise<void> => {
+const protectRoute = async (req: IRequestWithCookies, _res: Response, next: NextFunction): Promise<void> => {
     try {
         const token = req.cookies.jwt;
         if (!token) {
