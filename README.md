@@ -1,5 +1,20 @@
 # Task Tango - Advanced MERN Todo App
 
+<div align="center">
+  <img src="./client/public/logo.png" alt="Task Tango Logo" width="300" height="300">
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
+
+<!-- Add quick links for easy navigation -->
+<div align="center">
+  <a href="#-features">Features</a> •
+  <a href="#%EF%B8%8F-technologies">Technologies</a> •
+  <a href="#-getting-started">Getting Started</a> •
+  <a href="#-license">License</a>
+</div>
+
 Task Tango is an intuitive task management application built using the MERN stack (MongoDB, Express.js, React, Node.js) with TypeScript.
 
 ## 🌟 Features
