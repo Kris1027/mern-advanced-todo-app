@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { CheckCircle, Clock, Loader, Pencil } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { TaskProps } from '@/types/task-type';
@@ -23,8 +23,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             return res.data;
         },
         onSuccess: (data) => {
-            toast(data.message);
+            toast.error(data.message);
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
+        },
+        onError: (error: AxiosError<{ message: string }>) => {
+            toast.error(error.response?.data.message || 'An error occurred');
         },
     });
 
@@ -41,6 +44,9 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                 toast.error(data.message);
             }
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
+        },
+        onError: (error: AxiosError<{ message: string }>) => {
+            toast.error(error.response?.data.message || 'An error occurred');
         },
     });
 

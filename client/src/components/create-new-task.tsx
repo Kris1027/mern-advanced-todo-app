@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -54,8 +54,8 @@ const CreateNewTask: React.FC = () => {
             setOpen(false);
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: (error: AxiosError<{ message: string }>) => {
+            toast.error(error.response?.data.message || 'An error occurred');
         },
     });
 

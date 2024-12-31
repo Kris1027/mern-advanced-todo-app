@@ -1,16 +1,16 @@
 import { Link, useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { LogIn } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
 import { loginSchema } from '@/schemas/login-schema';
 import LoadingSpinner from '@/components/loading-spinner';
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import toast from 'react-hot-toast';
 
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
@@ -34,8 +34,8 @@ const LoginPage: React.FC = () => {
             navigate({ to: '/' });
             reset();
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: (error: AxiosError<{ message: string }>) => {
+            toast.error(error.response?.data.message || 'An error occurred');
         },
     });
 

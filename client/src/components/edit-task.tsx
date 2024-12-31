@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -58,8 +58,8 @@ const EditTask: React.FC<TaskItemProps> = ({ task }) => {
             setOpen(false);
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: (error: AxiosError<{ message: string }>) => {
+            toast.error(error.response?.data.message || 'An error occurred');
         },
     });
 

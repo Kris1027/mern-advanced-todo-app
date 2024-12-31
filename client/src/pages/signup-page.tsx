@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { Link, useNavigate } from '@tanstack/react-router';
-import axios from 'axios';
+import axios, { type AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -34,8 +34,8 @@ const SignupPage: React.FC = () => {
             navigate({ to: '/' });
             reset();
         },
-        onError: (error) => {
-            toast.error(error.message);
+        onError: (error: AxiosError<{ message: string }>) => {
+            toast.error(error.response?.data.message || 'An error occurred');
         },
     });
 
