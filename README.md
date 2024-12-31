@@ -40,12 +40,7 @@ cd mern-advanced-todo-app
 2. **Install dependencies**
 
 ```bash
-# Install backend dependencies
-cd server
-npm install
-
-# Install frontend dependencies
-cd ../client
+# Install all dependencies (both frontend and backend)
 npm install
 ```
 
@@ -56,37 +51,27 @@ npm install
 ```env
 MONGODB_URI=your_mongodb_uri
 JWT_SECRET=your_secret_key
-PORT=5000
+PORT=3000
+NODE_ENV=production
 ```
 
-4. **Run the application**
+4. **Available Scripts**
 
 ```bash
-# Run backend (from server folder)
-npm run dev
+# Development
+npm run dev         # Run both frontend and backend in development mode
+npm run client     # Run only frontend in development mode
+npm run server     # Run only backend in development mode
 
-# Run frontend (from client folder)
-npm run dev
-```
+# Build
+npm run build      # Build both frontend and backend
+npm run build-client  # Build only frontend
+npm run build-server  # Build only backend
 
-## 📁 Project Structure
-
-```
-task-tango/
-├── client/                 # Frontend React
-│   ├── src/
-│   │   ├── api/           # API integrations
-│   │   ├── components/    # React components
-│   │   ├── hooks/        # Custom hooks
-│   │   ├── lib/          # Utility functions
-│   │   └── types/        # TypeScript definitions
-│   └── ...
-├── server/                # Backend Node.js
-│   ├── controllers/      # Controllers
-│   ├── models/          # Mongoose models
-│   ├── routes/         # API routes
-│   └── ...
-└── README.md
+# Production
+npm run start      # Run both frontend and backend in production mode
+npm run start-client  # Run only frontend in production mode
+npm run start-server  # Run only backend in production mode
 ```
 
 ## 📝 License
@@ -101,5 +86,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## 📧 Contact
 
 Krzysztof Obarzanek - [LinkedIn](https://www.linkedin.com/in/krzysztof-obarzanek/)
-
-Project Link: [https://github.com/your-repo/task-tango](https://github.com/your-repo/task-tango)
