@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import cookieConfig from '../config/cookie-config.js';
 import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
 import type { ILoginRequestBody, ISignupRequestBody } from 'types/auth-types.js';
@@ -27,6 +28,7 @@ export const signupUser = async (
             const error: IErrorProps = new Error('Email address is already taken');
             error.status = 400;
             next(error);
+            return;
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -42,12 +44,7 @@ export const signupUser = async (
         if (newUser) {
             const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET as string);
 
-            res.cookie('jwt', token, {
-                maxAge: 24 * 60 * 60 * 1000,
-                httpOnly: true,
-                sameSite: 'strict',
-                secure: process.env.NODE_ENV !== 'development',
-            });
+            res.cookie('jwt', token, cookieConfig);
 
             await newUser.save();
             res.status(201).json({ message: 'User created successfully' });
@@ -90,12 +87,7 @@ export const loginUser = async (
         }
 
         token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string);
-        res.cookie('jwt', token, {
-            maxAge: 24 * 60 * 60 * 1000,
-            httpOnly: true,
-            sameSite: 'strict',
-            secure: process.env.NODE_ENV !== 'development',
-        });
+        res.cookie('jwt', token, cookieConfig);
 
         res.status(200).json({ message: 'User logged in successfully' });
     } catch (error) {
@@ -114,6 +106,14 @@ export const logoutUser = (_req: Request, res: Response, next: NextFunction): vo
 
 export const getUserData = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
+        const token = (req.cookies as Record<string, string>).jwt;
+        if (!token) {
+            const error: IErrorProps = new Error('No token found');
+            error.status = 401;
+            next(error);
+            return;
+        }
+
         if (!req.user || !req.user._id) {
             const error: IErrorProps = new Error('User not logged in');
             error.status = 404;
