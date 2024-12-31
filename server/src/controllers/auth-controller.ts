@@ -84,7 +84,7 @@ export const loginUser = async (
 
         if (!isPasswordValid) {
             const error: IErrorProps = new Error('Invalid password');
-            error.status = 404;
+            error.status = 401;
             next(error);
             return;
         }
