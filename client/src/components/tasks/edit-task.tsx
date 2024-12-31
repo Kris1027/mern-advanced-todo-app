@@ -20,7 +20,7 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import type { TaskItemProps } from '@/components/task-item';
+import type { TaskItemProps } from '@/components/tasks/task-item';
 import toast from 'react-hot-toast';
 
 const EditTask: React.FC<TaskItemProps> = ({ task }) => {

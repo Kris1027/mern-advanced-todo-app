@@ -1,6 +1,6 @@
 import { Info } from 'lucide-react';
 import type { TaskProps } from '@/types/task-type';
-import TaskItem from '@/components/task-item';
+import TaskItem from '@/components/tasks/task-item';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 interface TaskListProps {

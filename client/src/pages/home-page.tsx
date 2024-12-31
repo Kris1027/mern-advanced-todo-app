@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { taskApi } from '@/api/task-api';
-import CreateNewTask from '@/components/create-new-task';
+import CreateNewTask from '@/components/tasks/new-task';
 import LoadingSpinner from '@/components/ui/loading-spinner';
-import TaskList from '@/components/task-list';
+import TaskList from '@/components/tasks/task-list';
 
 const HomePage: React.FC = () => {
     const { data: tasks, isLoading } = useQuery({

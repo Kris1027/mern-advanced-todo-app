@@ -6,7 +6,7 @@ import type { TaskProps } from '@/types/task-type';
 import { formatDate } from '@/lib/utils';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import EditTask from '@/components/edit-task';
+import EditTask from '@/components/tasks/edit-task';
 import AlertModal from '@/components/ui/alert-modal';
 import LoadingSpinner from '@/components/ui/loading-spinner';
 
