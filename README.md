@@ -1,15 +1,13 @@
 # Task Tango - Advanced MERN Todo App
 
 <div align="center">
-<picture>
+<!-- Logo -->
     <img
       src="./client/public/logo.png"
       alt="Task Tango Logo"
       width="300"
       height="300"
-      style="border-radius: 9999px"
     />
-  </picture>
 
 <!-- Main Tech Stack -->
 <p>
