@@ -2,7 +2,7 @@
 
 <div align="center">
 <img
-    src="./client/public/task-tango-logo.png"
+    src="./client/public/logo.png"
     alt="Task Tango Logo"
     width="300"
     height="300"
