@@ -11,7 +11,7 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import LoadingSpinner from '@/components/loading-spinner';
+import LoadingSpinner from '@/components/ui/loading-spinner';
 
 interface AlertModalProps {
     deleteTask: () => void;

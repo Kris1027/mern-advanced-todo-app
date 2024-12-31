@@ -7,8 +7,8 @@ import { formatDate } from '@/lib/utils';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import EditTask from '@/components/edit-task';
-import AlertModal from '@/components/alert-modal';
-import LoadingSpinner from '@/components/loading-spinner';
+import AlertModal from '@/components/ui/alert-modal';
+import LoadingSpinner from '@/components/ui/loading-spinner';
 
 export interface TaskItemProps {
     task: TaskProps;

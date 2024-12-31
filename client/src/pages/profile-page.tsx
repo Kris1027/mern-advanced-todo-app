@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import ProfileImage from '@/components/profile-image';
+import ProfileImage from '@/components/ui/profile-image';
 
 const ProfilePage: React.FC = () => {
     const user = useLoaderData({ from: '__root__' });

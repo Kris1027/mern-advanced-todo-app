@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Pencil } from 'lucide-react';
 import { createTaskSchema } from '@/schemas/create-task-schema';
 import { authApi } from '@/api/auth-api';
-import InputError from '@/components/input-error';
+import InputError from '@/components/ui/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,

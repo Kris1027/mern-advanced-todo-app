@@ -7,11 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import toast from 'react-hot-toast';
 import { UserPlus } from 'lucide-react';
 import { signupSchema } from '@/schemas/signup-schema';
-import LoadingSpinner from '@/components/loading-spinner';
-import Logo from '@/components/logo';
+import LoadingSpinner from '@/components/ui/loading-spinner';
+import Logo from '@/components/ui/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import InputError from '@/components/input-error';
+import InputError from '@/components/ui/input-error';
 
 const SignupPage: React.FC = () => {
     const navigate = useNavigate();

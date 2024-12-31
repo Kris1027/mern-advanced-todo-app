@@ -8,7 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusCircle } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { authApi } from '@/api/auth-api';
-import InputError from '@/components/input-error';
+import InputError from '@/components/ui/input-error';
 import { Button } from '@/components/ui/button';
 import {
     Dialog,
