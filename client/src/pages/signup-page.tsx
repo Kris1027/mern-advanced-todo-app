@@ -11,6 +11,7 @@ import LoadingSpinner from '@/components/loading-spinner';
 import Logo from '@/components/logo';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import InputError from '@/components/input-error';
 
 const SignupPage: React.FC = () => {
     const navigate = useNavigate();
@@ -60,34 +61,28 @@ const SignupPage: React.FC = () => {
                         placeholder='username'
                         {...register('username', { required: true })}
                     />
-                    {errors.username && (
-                        <p className='text-xs text-red-500'>{errors.username.message}</p>
-                    )}
+                    {errors.username && <InputError>{errors.username.message}</InputError>}
                     <Input
                         disabled={isPending}
                         type='text'
                         placeholder='full name'
                         {...register('fullName', { required: true })}
                     />
-                    {errors.fullName && (
-                        <p className='text-xs text-red-500'>{errors.fullName.message}</p>
-                    )}
+                    {errors.fullName && <InputError>{errors.fullName.message}</InputError>}
                     <Input
                         disabled={isPending}
                         type='text'
                         placeholder='email'
                         {...register('email', { required: true })}
                     />
-                    {errors.email && <p className='text-xs text-red-500'>{errors.email.message}</p>}
+                    {errors.email && <InputError>{errors.email.message}</InputError>}
                     <Input
                         disabled={isPending}
                         type='password'
                         placeholder='password'
                         {...register('password', { required: true })}
                     />
-                    {errors.password && (
-                        <p className='text-xs text-red-500'>{errors.password.message}</p>
-                    )}
+                    {errors.password && <InputError>{errors.password.message}</InputError>}
                     <Button disabled={isPending} size='fullWidth' type='submit'>
                         {isPending ? <LoadingSpinner size='xs' /> : <UserPlus />}
                     </Button>
