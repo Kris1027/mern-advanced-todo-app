@@ -2,12 +2,15 @@ import type { ErrorRequestHandler, NextFunction, Request, Response } from 'expre
 import type { IErrorProps } from 'types/global.js';
 
 const globalError: ErrorRequestHandler = (err: IErrorProps, _req: Request, res: Response, next: NextFunction) => {
-    if (err.status) {
-        res.status(err.status).json({ message: err.message });
-    } else {
-        res.status(500).json({ message: err.message });
-    }
-    next();
+    const statusCode = err.status ?? 500;
+    const message = err.message || 'Internal Server Error';
+
+    res.status(statusCode).json({
+        message,
+        ...(process.env.NODE_ENV === 'development' && { stack: err.stack }),
+    });
+
+    next(err);
 };
 
 export default globalError;
