@@ -67,24 +67,31 @@
   </a>
 </p>
 
-</div>
+<a href="#-features">Features</a> •
+<a href="#%EF%B8%8F-technologies">Technologies</a> •
+<a href="#-getting-started">Getting Started</a> •
+<a href="#-license">License</a>
 
-<div align="center">
-  <a href="#-features">Features</a> •
-  <a href="#%EF%B8%8F-technologies">Technologies</a> •
-  <a href="#-getting-started">Getting Started</a> •
-  <a href="#-license">License</a>
-</div>
+<p>Task Tango is an intuitive task management application built using the MERN stack (MongoDB, Express.js, React, Node.js) with TypeScript. </p>
 
-Task Tango is an intuitive task management application built using the MERN stack (MongoDB, Express.js, React, Node.js) with TypeScript.
+</div>
 
 ## 🌟 Features
 
-- **User Authentication**: Secure login and registration
-- **Task Management**: Create, edit, delete, and mark tasks as complete
-- **Time Tracking**: Automatic timestamp tracking for task creation and updates
-- **Responsive Design**: Full mobile device compatibility
-- **Dark/Light Mode**: Theme switching for better user experience
+- **User Authentication**: Secure login and registration with JWT tokens and password hashing
+- **Task Management**: Create, edit, delete, and mark tasks as complete with real-time updates
+- **Time Tracking**: Automatic timestamp tracking for task creation, updates and completion
+- **Responsive Design**: Full mobile and tablet compatibility with modern UI components
+- **Dark/Light Mode**: System-synced theme switching for better user experience
+- **Form Validation**: Client and server-side validation using Zod schemas
+- **Data Caching**: Optimized data fetching with TanStack Query
+- **Type Safety**: Full TypeScript support across frontend and backend
+- **API Security**: CORS protection and request compression
+- **Modern Stack**: Built with React, Express, and MongoDB
+- **Clean Architecture**: Well-structured codebase with consistent code formatting
+- **Developer Experience**: Hot reloading and fast build times with Vite
+- **Accessibility**: ARIA compliant components using Radix UI
+- **Error Handling**: Toast notifications for user feedback
 
 ## 🛠️ Technologies
 
@@ -116,9 +123,9 @@ Task Tango is an intuitive task management application built using the MERN stac
 
 ### Development
 
-ESLint for linting
-Prettier for code formatting
-TypeScript ESLint for TS-specific linting
+- ESLint for linting
+- Prettier for code formatting
+- TypeScript ESLint for TS-specific linting
 
 ## 🚀 Getting Started
 
@@ -186,3 +193,5 @@ npm run start-server  # Run only backend in production mode
 ## 📧 Contact
 
 Krzysztof Obarzanek - [LinkedIn](https://www.linkedin.com/in/krzysztof-obarzanek/)
+About me - [Portfolio](https://www.kris1027.pl/)
+Business - [Web-Services](https://websites.kris1027.pl/)
