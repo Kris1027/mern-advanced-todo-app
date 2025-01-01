@@ -1,7 +1,5 @@
-# Task Tango - Advanced MERN Todo App
-
 <div align="center">
-<!-- Logo -->
+    <h1>Task Tango - Advanced MERN Todo App</h1>
     <img
       src="./client/public/logo.png"
       alt="Task Tango Logo"
@@ -9,7 +7,6 @@
       height="300"
     />
 
-<!-- Main Tech Stack -->
 <p>
   <a href="https://reactjs.org/">
     <img src="https://img.shields.io/badge/React-v18.2-%2361DAFB.svg?style=for-the-badge&logo=react&logoColor=black" alt="React 18"/>
@@ -25,7 +22,6 @@
   </a>
 </p>
 
-<!-- Frontend Dependencies -->
 <p>
   <a href="https://tanstack.com/router/latest">
     <img src="https://img.shields.io/badge/TanStack%20Router-v1.15-%23FF4154.svg?style=for-the-badge&logo=react-router&logoColor=white" alt="TanStack Router"/>
@@ -41,7 +37,6 @@
   </a>
 </p>
 
-<!-- Additional Tools -->
 <p>
   <a href="https://axios-http.com/">
     <img src="https://img.shields.io/badge/Axios-v1.6-%235A29E4.svg?style=for-the-badge&logo=axios&logoColor=white" alt="Axios"/>
@@ -54,7 +49,6 @@
   </a>
 </p>
 
-<!-- Authentication & Security -->
 <p>
   <a href="https://jwt.io/">
     <img src="https://img.shields.io/badge/JWT-latest-black?style=for-the-badge&logo=JSON%20web%20tokens" alt="JWT"/>
@@ -67,7 +61,6 @@
   </a>
 </p>
 
-<!-- License -->
 <p>
   <a href="https://opensource.org/licenses/MIT">
     <img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" alt="License MIT"/>
@@ -76,7 +69,6 @@
 
 </div>
 
-<!-- Add quick links for easy navigation -->
 <div align="center">
   <a href="#-features">Features</a> •
   <a href="#%EF%B8%8F-technologies">Technologies</a> •
@@ -158,14 +150,22 @@ npm run start-client  # Run only frontend in production mode
 npm run start-server  # Run only backend in production mode
 ```
 
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
 ## 👏 Acknowledgments
 
 - [shadcn/ui](https://ui.shadcn.com/) for UI components
 - [TanStack](https://tanstack.com/) for awesome React tools
+- [React](https://react.dev/) for frontend library
+- [Tailwind](https://tailwindcss.com/) for simple styling
+- [Express](https://expressjs.com/) for fast backend
+- [MongoDB](https://mongodb.com/) for modern database
+- [TypeScript](https://typescriptlang.org/) for safer code
+- [Zod](https://zod.dev/) for schema validation
+- [React-Hook-Form](https://react-hook-form.com/)React Hook Form for better forms
+- [Lucide](https://lucide.dev/) for beautiful icons
+- [Vite](https://vite.dev/)for fast development
+- [ESLint](https://eslint.org/) for clean code
+- [Prettier](https://prettier.io/) for consistent formatting
+- [JWT](https://jwt.io/)JWT for secure auth
 
 ## 📧 Contact
 
