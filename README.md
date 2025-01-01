@@ -94,15 +94,31 @@ Task Tango is an intuitive task management application built using the MERN stac
 - TanStack Router for routing
 - TanStack Query for state management
 - Tailwind CSS with shadcn/ui for styling
+- Radix UI for accessible components
+- Lucide React for icons
 - Axios for HTTP requests
 - React Hook Form with Zod for form validation
+- React Hot Toast for notifications
+- Vite for build tooling
 
 ### Backend
 
 - Node.js with Express
+- TypeScript for type safety
 - MongoDB with Mongoose
 - JWT for authentication
 - bcrypt for password hashing
+- Compression for response optimization
+- CORS for cross-origin requests
+- Cookie Parser for cookie handling
+- dotenv for environment variables
+- Zod for schema validation
+
+### Development
+
+ESLint for linting
+Prettier for code formatting
+TypeScript ESLint for TS-specific linting
 
 ## 🚀 Getting Started
 

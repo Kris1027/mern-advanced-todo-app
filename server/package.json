@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "start": "node dist/app.js",
-        "build": "tsc",
+        "clean": "rimraf dist",
+        "build": "npm run clean && tsc",
         "dev": "tsx watch src/app.ts",
         "lint": "eslint . --fix"
     },
@@ -44,10 +45,8 @@
         "eslint-plugin-promise": "^6.6.0",
         "eslint-plugin-sort-class-members": "^1.21.0",
         "prettier": "3.4.2",
-        "tsx": "^4.7.1",
         "rimraf": "^5.0.1",
-        "nodemon": "^3.1.0",
-        "ts-node": "^10.9.2"
+        "tsx": "^4.7.1"
     },
     "engines": {
         "node": ">=18.0.0"
