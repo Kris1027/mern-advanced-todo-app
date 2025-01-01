@@ -12,7 +12,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
         <div className='space-y-4 w-full'>
             {tasks && tasks.map((task: TaskProps) => <TaskItem key={task._id} task={task} />)}
             {tasks && tasks.length === 0 && (
-                <Alert>
+                <Alert className='flex flex-col items-center space-x-2'>
                     <Info />
                     <AlertTitle>No Tasks Available</AlertTitle>
                     <AlertDescription>
