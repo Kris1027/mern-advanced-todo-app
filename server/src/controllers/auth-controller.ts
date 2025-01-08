@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import HttpError from 'utils/http-error.js';
 import cookieConfig from '../config/cookie-config.js';
 import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
 import type { ILoginRequestBody, ISignupRequestBody } from 'types/auth-types.js';
-import type { IErrorProps } from 'types/global.js';
 
 export const signupUser = async (
     req: Request<object, object, ISignupRequestBody>,
@@ -18,17 +18,11 @@ export const signupUser = async (
         const existingEmail = await User.findOne({ email });
 
         if (existingUsername) {
-            const error: IErrorProps = new Error('Username is already taken');
-            error.status = 400;
-            next(error);
-            return;
+            throw new HttpError('Username is already taken', 400);
         }
 
         if (existingEmail) {
-            const error: IErrorProps = new Error('Email address is already taken');
-            error.status = 400;
-            next(error);
-            return;
+            throw new HttpError('Email address is already taken', 400);
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -63,27 +57,18 @@ export const loginUser = async (
         const { username, password } = req.body;
         const user = await User.findOne({ username });
         if (!user) {
-            const error: IErrorProps = new Error('User not found');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('User not found', 404);
         }
 
         let token: string | undefined = (req.cookies as Record<string, string>).jwt;
         if (token) {
-            const error: IErrorProps = new Error('User is already logged in');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('User is already logged in', 401);
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
-            const error: IErrorProps = new Error('Invalid password');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('Invalid password', 401);
         }
 
         token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string);
@@ -108,17 +93,11 @@ export const getUserData = async (req: Request, res: Response, next: NextFunctio
     try {
         const token = (req.cookies as Record<string, string>).jwt;
         if (!token) {
-            const error: IErrorProps = new Error('No token found');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('No token found', 401);
         }
 
         if (!req.user || !req.user._id) {
-            const error: IErrorProps = new Error('User not logged in');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('User not logged in', 404);
         }
         const user = await User.findById(req.user._id).select('-password');
         res.status(200).json({ message: 'User data fetched successfully', user });

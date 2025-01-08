@@ -1,7 +1,7 @@
+import HttpError from 'utils/http-error.js';
 import Task from '../models/task-model.js';
 import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
-import type { IErrorProps } from 'types/global.js';
 import type { ITaskRequestBody } from 'types/task-types.js';
 
 export const createTask = async (
@@ -13,17 +13,11 @@ export const createTask = async (
         const { title, text } = req.body;
 
         if (!title || !text) {
-            const error: IErrorProps = new Error('Inputs cannot be empty');
-            error.status = 400;
-            next(error);
-            return;
+            throw new HttpError('Inputs cannot be empty', 400);
         }
 
         if (!req.user || !req.user._id) {
-            const error: IErrorProps = new Error('User not logged in');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('User not logged in', 401);
         }
 
         const newTask = new Task({
@@ -45,18 +39,12 @@ export const createTask = async (
 export const getUserTasks = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         if (!req.user || !req.user._id) {
-            const error: IErrorProps = new Error('User not logged in');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('User not logged in', 401);
         }
 
         const user = await User.findById(req.user._id);
         if (!user) {
-            const error: IErrorProps = new Error('User not found');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('User not found', 404);
         }
 
         const tasks = await Task.find({ user });
@@ -74,33 +62,21 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
     try {
         const task = await Task.findById(req.params.id);
         if (!task) {
-            const error: IErrorProps = new Error('Task not found');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('Task not found', 404);
         }
 
         if (!req.user || !req.user._id) {
-            const error: IErrorProps = new Error('User not logged in');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('User not logged in', 401);
         }
 
         const userId = req.user._id.toString();
         const user = await User.findById(userId);
         if (!user) {
-            const error: IErrorProps = new Error('User not found');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('User not found', 404);
         }
 
         if (task.user.toString() !== userId) {
-            const error: IErrorProps = new Error('Not authorized to delete this task');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('Not authorized to delete this task', 401);
         }
 
         await Task.findByIdAndDelete(req.params.id);
@@ -118,41 +94,26 @@ export const updateTask = async (
     try {
         const { title, text } = req.body;
         if (!title || !text) {
-            const error: IErrorProps = new Error('Inputs cannot be empty');
-            error.status = 400;
-            next(error);
-            return;
+            throw new HttpError('Inputs cannot be empty', 400);
         }
 
         if (!req.user || !req.user._id) {
-            const error: IErrorProps = new Error('User not logged in');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('User not logged in', 401);
         }
 
         const userId = req.user._id;
         const user = await User.findById(userId);
         if (!user) {
-            const error: IErrorProps = new Error('User not found');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('User not found', 404);
         }
         const taskId = req.params.id;
         let task = await Task.findById(taskId);
         if (!task) {
-            const error: IErrorProps = new Error('Task not found');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('Task not found', 404);
         }
 
         if (task.user.toString() !== userId.toString()) {
-            const error: IErrorProps = new Error('Not authorized to update this task');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('Not authorized to update this task', 401);
         }
 
         const update = {
@@ -174,36 +135,24 @@ export const updateTask = async (
 export const toggleTaskCompletion = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         if (!req.user || !req.user._id) {
-            const error: IErrorProps = new Error('User not logged in');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('User not logged in', 401);
         }
 
         const userId = req.user._id;
         const user = await User.findById(userId);
 
         if (!user) {
-            const error: IErrorProps = new Error('User not found');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('User not found', 404);
         }
 
         const taskId = req.params.id;
         let task = await Task.findById(taskId);
         if (!task) {
-            const error: IErrorProps = new Error('Task not found');
-            error.status = 404;
-            next(error);
-            return;
+            throw new HttpError('Task not found', 404);
         }
 
         if (task.user.toString() !== userId.toString()) {
-            const error: IErrorProps = new Error('Not authorized to update this task');
-            error.status = 401;
-            next(error);
-            return;
+            throw new HttpError('Not authorized to update this task', 401);
         }
 
         const update = {
