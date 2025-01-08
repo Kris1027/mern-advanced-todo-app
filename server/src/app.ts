@@ -32,5 +32,5 @@ app.use(notFound);
 app.use(globalError);
 
 startServer(app).catch(() => {
-    /* Error handling is already implemented in startServer function */
+    process.exit(1);
 });
