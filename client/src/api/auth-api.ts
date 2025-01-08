@@ -12,9 +12,8 @@ export const authApi = async (): Promise<AuthProps | null> => {
         const res: AxiosResponse<AuthProps> = await axios.get('/api/auth/user');
         if (res.data) {
             return res.data;
-        } else {
-            throw redirect({ to: '/login' });
         }
+        throw redirect({ to: '/login' });
     } catch {
         throw redirect({ to: '/login' });
     }
