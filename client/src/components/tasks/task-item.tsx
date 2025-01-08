@@ -1,14 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { type AxiosError } from 'axios';
-import { CheckCircle, Clock, Loader, Pencil } from 'lucide-react';
+import { CheckCircle, Clock, Pencil } from 'lucide-react';
 import toast from 'react-hot-toast';
 import type { TaskProps } from '@/types/task-type';
 import { formatDate } from '@/lib/utils';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import EditTask from '@/components/tasks/edit-task';
 import AlertModal from '@/components/ui/alert-modal';
-import LoadingSpinner from '@/components/ui/loading-spinner';
+import ToggleTask from '@/components/tasks/toggle-task';
 
 export interface TaskItemProps {
     task: TaskProps;
@@ -69,15 +68,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             </CardContent>
             <CardFooter className='flex justify-between'>
                 <div className='flex gap-4 items-center'>
-                    <Button onClick={() => toggleTaskCompletion()} variant='default'>
-                        {isCompleting ? (
-                            <LoadingSpinner size='xs' />
-                        ) : task.isComplete ? (
-                            <CheckCircle />
-                        ) : (
-                            <Loader className='animate-slower-spin' />
-                        )}
-                    </Button>
+                    <ToggleTask
+                        task={task}
+                        toggleTaskCompletion={toggleTaskCompletion}
+                        isCompleting={isCompleting}
+                    />
                     {!task.isComplete && <EditTask task={task} />}
                     <AlertModal deleteTask={deleteTask} isDeleting={isDeleting} />
                 </div>
