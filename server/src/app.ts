@@ -31,6 +31,4 @@ app.use('/api/tasks', taskRouter);
 app.use(notFound);
 app.use(globalError);
 
-startServer(app).catch(() => {
-    process.exit(1);
-});
+await startServer(app);
