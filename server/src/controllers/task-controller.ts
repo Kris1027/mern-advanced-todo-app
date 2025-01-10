@@ -118,9 +118,8 @@ export const updateTask = async (
             text,
         };
 
-        task = await Task.findByIdAndUpdate(taskId, update);
-        const updatedTask = await Task.findById(taskId);
-        successResponse(res, 200, 'Task updated successfully', updatedTask);
+        task = await Task.findByIdAndUpdate(taskId, update, { new: true });
+        successResponse(res, 200, 'Task updated successfully', task);
     } catch (error) {
         next(error);
     }
