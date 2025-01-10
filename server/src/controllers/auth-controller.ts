@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import HttpError from 'utils/http-error.js';
+import successResponse from 'utils/success-response.js';
 import cookieConfig from '../config/cookie-config.js';
 import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
@@ -41,7 +42,7 @@ export const signupUser = async (
             res.cookie('jwt', token, cookieConfig);
 
             await newUser.save();
-            res.status(201).json({ message: 'User created successfully' });
+            successResponse(res, 201, 'User signed up successfully');
         }
     } catch (error) {
         next(error);
@@ -74,7 +75,7 @@ export const loginUser = async (
         token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET as string);
         res.cookie('jwt', token, cookieConfig);
 
-        res.status(200).json({ message: 'User logged in successfully' });
+        successResponse(res, 200, 'User logged in successfully');
     } catch (error) {
         next(error);
     }
@@ -83,7 +84,7 @@ export const loginUser = async (
 export const logoutUser = (_req: Request, res: Response, next: NextFunction): void => {
     try {
         res.cookie('jwt', '', { maxAge: 0 });
-        res.status(200).json({ message: 'User logged out successfully' });
+        successResponse(res, 200, 'User logged out successfully');
     } catch (error) {
         next(error);
     }
@@ -100,7 +101,7 @@ export const getUserData = async (req: Request, res: Response, next: NextFunctio
             throw new HttpError('User not logged in', 404);
         }
         const user = await User.findById(req.user._id).select('-password');
-        res.status(200).json({ message: 'User data fetched successfully', user });
+        successResponse(res, 200, 'User data retrieved successfully', user);
     } catch (error) {
         next(error);
     }
