@@ -32,7 +32,7 @@ const EditTask: React.FC<TaskItemProps> = ({ task }) => {
         queryFn: authApi,
     });
 
-    const userId = data?.user._id;
+    const userId = data?.data._id;
 
     const {
         handleSubmit,

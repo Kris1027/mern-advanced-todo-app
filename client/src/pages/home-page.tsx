@@ -9,12 +9,11 @@ const HomePage: React.FC = () => {
         queryKey: ['tasks'],
         queryFn: taskApi,
     });
-
     return (
         <div className='flex flex-col items-start w-full gap-4'>
             <CreateNewTask />
             {isLoading && <LoadingSpinner size='xl' />}
-            {tasks && <TaskList tasks={tasks.tasks} />}
+            {tasks?.data && <TaskList tasks={tasks.data} />}
         </div>
     );
 };
