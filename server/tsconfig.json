@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "target": "ES2022",
-        "module": "NodeNext",
+        "module": "ES2022",
+        "moduleResolution": "Node",
         "types": ["node"],
         "lib": ["ES2022"],
         "allowJs": false,
@@ -24,7 +25,6 @@
         "inlineSources": true,
         "isolatedModules": true,
         "moduleDetection": "force",
-        "moduleResolution": "NodeNext",
         "noEmit": false,
         "noEmitOnError": false,
         "noFallthroughCasesInSwitch": true,
