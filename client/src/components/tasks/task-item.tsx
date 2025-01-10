@@ -34,7 +34,6 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
         mutationKey: ['toggleCompleteTask'],
         mutationFn: async () => {
             const res = await axios.put(`/api/tasks/${task._id}/complete`);
-            console.log(res.data.data);
             return res.data;
         },
         onSuccess: (data) => {
