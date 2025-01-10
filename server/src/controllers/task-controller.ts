@@ -1,4 +1,5 @@
 import HttpError from 'utils/http-error.js';
+import successResponse from 'utils/success-response.js';
 import Task from '../models/task-model.js';
 import User from '../models/user-model.js';
 import type { NextFunction, Request, Response } from 'express';
@@ -29,7 +30,7 @@ export const createTask = async (
 
         if (newTask) {
             await newTask.save();
-            res.status(201).json({ message: 'Task created successfully', newTask });
+            successResponse(res, 201, 'Task created successfully', newTask);
         }
     } catch (error) {
         next(error);
@@ -48,11 +49,7 @@ export const getUserTasks = async (req: Request, res: Response, next: NextFuncti
         }
 
         const tasks = await Task.find({ user });
-        res.status(200).json({
-            message:
-                tasks.length > 0 ? `Tasks of ${user.username} fetched successfully` : `${user.username} have no tasks`,
-            tasks,
-        });
+        successResponse(res, 200, 'Tasks fetched successfully', tasks);
     } catch (error) {
         next(error);
     }
@@ -80,7 +77,7 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
         }
 
         await Task.findByIdAndDelete(req.params.id);
-        res.status(200).json({ message: 'Task deleted successfully', task });
+        successResponse(res, 200, 'Task deleted successfully');
     } catch (error) {
         next(error);
     }
@@ -123,10 +120,7 @@ export const updateTask = async (
 
         task = await Task.findByIdAndUpdate(taskId, update);
         const updatedTask = await Task.findById(taskId);
-        res.status(200).json({
-            message: `Task of ${user.username} updated successfully`,
-            updatedTask,
-        });
+        successResponse(res, 200, 'Task updated successfully', updatedTask);
     } catch (error) {
         next(error);
     }
@@ -161,10 +155,7 @@ export const toggleTaskCompletion = async (req: Request, res: Response, next: Ne
 
         task = await Task.findByIdAndUpdate(taskId, update);
         const updatedTask = await Task.findById(taskId);
-        res.status(200).json({
-            message: updatedTask?.isComplete ? 'Task marked as completed' : 'Task marked as incomplete',
-            updatedTask,
-        });
+        successResponse(res, 200, 'Task updated successfully', updatedTask);
     } catch (error) {
         next(error);
     }
