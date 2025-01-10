@@ -34,13 +34,14 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
         mutationKey: ['toggleCompleteTask'],
         mutationFn: async () => {
             const res = await axios.put(`/api/tasks/${task._id}/complete`);
+            console.log(res.data.data);
             return res.data;
         },
         onSuccess: (data) => {
-            if (data.message === 'Task marked as completed') {
-                toast.success(data.message);
+            if (data.data.isComplete) {
+                toast.success('Task completed');
             } else {
-                toast.error(data.message);
+                toast.error('Task marked as incomplete');
             }
             queryClient.invalidateQueries({ queryKey: ['tasks'] });
         },
