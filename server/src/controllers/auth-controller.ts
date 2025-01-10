@@ -35,15 +35,12 @@ export const signupUser = async (
             email,
             password: hashedPassword,
         });
+        await newUser.save();
 
-        if (newUser) {
-            const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET as string);
+        const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET as string);
+        res.cookie('jwt', token, cookieConfig);
 
-            res.cookie('jwt', token, cookieConfig);
-
-            await newUser.save();
-            successResponse(res, 201, 'User signed up successfully');
-        }
+        successResponse(res, 201, 'User signed up successfully');
     } catch (error) {
         next(error);
     }
