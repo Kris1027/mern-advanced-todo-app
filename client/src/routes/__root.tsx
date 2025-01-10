@@ -10,7 +10,7 @@ export const Route = createRootRoute({
     loader: async () => {
         try {
             const res = await axios.get('/api/auth/user');
-            return res.data;
+            return res.data.data;
         } catch {
             return null;
         }

@@ -7,6 +7,7 @@ import ProfileImage from '@/components/ui/profile-image';
 
 const ProfilePage: React.FC = () => {
     const user = useLoaderData({ from: '__root__' });
+
     return (
         <Card className='w-full flex-grow-0'>
             <CardHeader>
@@ -18,11 +19,11 @@ const ProfilePage: React.FC = () => {
                     <Label htmlFor='profile-image'>Profile Image</Label>
                     <ProfileImage />
                     <Label htmlFor='username'>Username</Label>
-                    <Input id='username' placeholder={user.user.username} />
+                    <Input id='username' placeholder={user.username} />
                     <Label htmlFor='full-name'>Full Name</Label>
-                    <Input id='full-name' placeholder={user.user.fullName} />
+                    <Input id='full-name' placeholder={user.fullName} />
                     <Label>Email address</Label>
-                    <Input id='email' placeholder={user.user.email} />
+                    <Input id='email' placeholder={user.email} />
                     <div className='space-x-4'>
                         <Button type='submit'>Save</Button>
                         <Button variant='destructive' type='reset'>
