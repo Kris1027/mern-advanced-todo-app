@@ -26,6 +26,10 @@ export const signupUser = async (
             throw new HttpError('Email address is already taken', 400);
         }
 
+        if (password.length < 6) {
+            throw new HttpError('Password must be at least 6 characters long', 400);
+        }
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
