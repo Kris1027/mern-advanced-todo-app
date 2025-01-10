@@ -1,10 +1,8 @@
+import HttpError from 'utils/http-error.js';
 import type { NextFunction, Request, Response } from 'express';
-import type { IErrorProps } from 'types/global.js';
 
 const notFound = (_req: Request, _res: Response, next: NextFunction): void => {
-    const error: IErrorProps = new Error('Page not found');
-    error.status = 404;
-    next(error);
+    next(new HttpError('Page not found', 404));
 };
 
 export default notFound;
