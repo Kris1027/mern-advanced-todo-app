@@ -22,7 +22,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
-const CreateNewTask: React.FC = () => {
+const CreateTask: React.FC = () => {
     const [open, setOpen] = useState(false);
     const router = useRouter();
 
@@ -103,4 +103,4 @@ const CreateNewTask: React.FC = () => {
     );
 };
 
-export default CreateNewTask;
+export default CreateTask;
