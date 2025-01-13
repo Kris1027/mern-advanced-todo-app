@@ -1,16 +1,10 @@
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import HomePage from '@/pages/home-page';
 import { taskLoader } from '@/loaders/task-loader';
-import { authUserLoader } from '@/loaders/auth-user-loader';
+import { auth } from '@/lib/auth';
 
 export const Route = createFileRoute('/')({
     component: HomePage,
+    beforeLoad: auth,
     loader: taskLoader,
-    beforeLoad: async () => {
-        const authUser = await authUserLoader();
-        if (!authUser) {
-            throw redirect({ to: '/login' });
-        }
-        return authUser;
-    },
 });
