@@ -7,7 +7,7 @@ interface TaskResponse {
     data: TaskProps[];
 }
 
-export const taskApi = async (): Promise<TaskResponse> => {
+export const taskLoader = async (): Promise<TaskResponse> => {
     try {
         const res: AxiosResponse<TaskResponse> = await axios.get('/api/tasks');
         return res.data;

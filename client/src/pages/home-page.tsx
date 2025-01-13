@@ -1,19 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
-import { taskApi } from '@/api/task-api';
 import CreateNewTask from '@/components/tasks/new-task';
-import LoadingSpinner from '@/components/ui/loading-spinner';
 import TaskList from '@/components/tasks/task-list';
+import { useLoaderData } from '@tanstack/react-router';
 
 const HomePage: React.FC = () => {
-    const { data: tasks, isLoading } = useQuery({
-        queryKey: ['tasks'],
-        queryFn: taskApi,
-    });
+    const { data: tasks } = useLoaderData({ from: '/' });
+
     return (
         <div className='flex flex-col items-start w-full gap-4'>
             <CreateNewTask />
-            {isLoading && <LoadingSpinner size='xl' />}
-            {tasks?.data && <TaskList tasks={tasks.data} />}
+            {tasks && <TaskList tasks={tasks} />}
         </div>
     );
 };
