@@ -1,37 +1,16 @@
-import { useRouter } from '@tanstack/react-router';
-import { useMutation } from '@tanstack/react-query';
-import axios, { type AxiosError } from 'axios';
-import { CheckCircle, Clock, Pencil } from 'lucide-react';
-import toast from 'react-hot-toast';
 import type { TaskProps } from '@/types/task-type';
 import { formatDate } from '@/lib/utils';
+import { CheckCircle, Clock, Pencil } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import EditTask from '@/components/tasks/edit-task';
-import AlertModal from '@/components/ui/alert-modal';
 import ToggleTask from '@/components/tasks/toggle-task';
+import DeleteTask from '@/components/tasks/delete-task';
 
 export interface TaskItemProps {
     task: TaskProps;
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
-    const router = useRouter();
-
-    const { mutate: deleteTask, isPending: isDeleting } = useMutation({
-        mutationKey: ['deleteTask'],
-        mutationFn: async () => {
-            const res = await axios.delete(`/api/tasks/${task._id}`);
-            return res.data;
-        },
-        onSuccess: async (data) => {
-            toast.error(data.message);
-            await router.invalidate();
-        },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast.error(error.response?.data.message || 'An error occurred');
-        },
-    });
-
     return (
         <Card className='overflow-hidden'>
             <CardHeader>
@@ -53,7 +32,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
                 <div className='flex gap-4 items-center'>
                     <ToggleTask task={task} />
                     {!task.isComplete && <EditTask task={task} />}
-                    <AlertModal deleteTask={deleteTask} isDeleting={isDeleting} />
+                    <DeleteTask task={task} />
                 </div>
                 <div className='text-xs text-center opacity-50 flex-col items-start'>
                     <div className='flex items-center gap-2'>
