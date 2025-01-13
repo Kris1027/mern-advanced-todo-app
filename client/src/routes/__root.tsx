@@ -1,20 +1,13 @@
 import { Outlet, createRootRoute, useLoaderData } from '@tanstack/react-router';
-import axios from 'axios';
 import * as React from 'react';
 import Navbar from '@/components/layout/nav-bar';
 import { Toaster } from 'react-hot-toast';
 import Footer from '@/components/layout/footer';
+import { authUserLoader } from '@/loaders/auth-user-loader';
 
 export const Route = createRootRoute({
     component: RootComponent,
-    loader: async () => {
-        try {
-            const res = await axios.get('/api/auth/user');
-            return res.data.data;
-        } catch {
-            return null;
-        }
-    },
+    loader: authUserLoader,
 });
 
 function RootComponent() {

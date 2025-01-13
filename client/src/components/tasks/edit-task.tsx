@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLoaderData } from '@tanstack/react-router';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios, { type AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Pencil } from 'lucide-react';
+import toast from 'react-hot-toast';
 import { createTaskSchema } from '@/schemas/create-task-schema';
-import { authApi } from '@/api/auth-api';
 import InputError from '@/components/ui/input-error';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,18 +22,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import type { TaskItemProps } from '@/components/tasks/task-item';
-import toast from 'react-hot-toast';
 
 const EditTask: React.FC<TaskItemProps> = ({ task }) => {
+    const user = useLoaderData({ from: '__root__' });
+    const userId = user?.data._id;
+
     const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
-
-    const { data } = useQuery({
-        queryKey: ['authUser'],
-        queryFn: authApi,
-    });
-
-    const userId = data?.data._id;
 
     const {
         handleSubmit,
