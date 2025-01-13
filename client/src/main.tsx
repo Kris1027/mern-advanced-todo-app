@@ -1,14 +1,28 @@
 import { StrictMode } from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider, createRouter } from '@tanstack/react-router';
+import { ErrorComponent, Link, RouterProvider, createRouter } from '@tanstack/react-router';
 import { routeTree } from './routeTree.gen';
 import './index.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ThemeProvider } from '@/contexts/theme-provider';
+import LoadingSpinner from './components/ui/loading-spinner';
 
 const queryClient = new QueryClient();
 
-const router = createRouter({ routeTree });
+const router = createRouter({
+    routeTree,
+    defaultErrorComponent: ErrorComponent,
+    defaultPendingComponent: () => <LoadingSpinner size='xl' />,
+    defaultNotFoundComponent: () => {
+        return (
+            // create not found page later
+            <div>
+                <p>Page Not found!</p>
+                <Link to='/'>Go home</Link>
+            </div>
+        );
+    },
+});
 
 declare module '@tanstack/react-router' {
     interface Register {
