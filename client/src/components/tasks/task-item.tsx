@@ -1,4 +1,5 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from '@tanstack/react-router';
+import { useMutation } from '@tanstack/react-query';
 import axios, { type AxiosError } from 'axios';
 import { CheckCircle, Clock, Pencil } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -14,16 +15,17 @@ export interface TaskItemProps {
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
-    const queryClient = useQueryClient();
+    const router = useRouter();
+
     const { mutate: deleteTask, isPending: isDeleting } = useMutation({
         mutationKey: ['deleteTask'],
         mutationFn: async () => {
             const res = await axios.delete(`/api/tasks/${task._id}`);
             return res.data;
         },
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             toast.error(data.message);
-            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            await router.invalidate();
         },
         onError: (error: AxiosError<{ message: string }>) => {
             toast.error(error.response?.data.message || 'An error occurred');
@@ -31,18 +33,18 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     });
 
     const { mutate: toggleTaskCompletion, isPending: isCompleting } = useMutation({
-        mutationKey: ['toggleCompleteTask'],
+        mutationKey: ['toggleTask'],
         mutationFn: async () => {
             const res = await axios.put(`/api/tasks/${task._id}/complete`);
             return res.data;
         },
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             if (data.data.isComplete) {
                 toast.success('Task completed');
             } else {
                 toast.error('Task marked as incomplete');
             }
-            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            await router.invalidate();
         },
         onError: (error: AxiosError<{ message: string }>) => {
             toast.error(error.response?.data.message || 'An error occurred');

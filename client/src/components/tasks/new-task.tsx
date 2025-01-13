@@ -1,5 +1,5 @@
-import { useLoaderData } from '@tanstack/react-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLoaderData, useRouter } from '@tanstack/react-router';
+import { useMutation } from '@tanstack/react-query';
 import axios, { type AxiosError } from 'axios';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -23,8 +23,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
 const CreateNewTask: React.FC = () => {
-    const queryClient = useQueryClient();
     const [open, setOpen] = useState(false);
+    const router = useRouter();
 
     const user = useLoaderData({ from: '__root__' });
     const userId = user?.data._id;
@@ -39,16 +39,16 @@ const CreateNewTask: React.FC = () => {
     });
 
     const { mutate, isPending } = useMutation({
-        mutationKey: ['createTask'],
+        mutationKey: ['newTask'],
         mutationFn: async (values: z.infer<typeof createTaskSchema>) => {
             const res = await axios.post('/api/tasks', values);
             return res.data;
         },
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             toast.success(data.message);
             reset();
             setOpen(false);
-            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            await router.invalidate();
         },
         onError: (error: AxiosError<{ message: string }>) => {
             toast.error(error.response?.data.message || 'An error occurred');

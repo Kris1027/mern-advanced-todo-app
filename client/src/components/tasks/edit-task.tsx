@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useLoaderData } from '@tanstack/react-router';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useLoaderData, useRouter } from '@tanstack/react-router';
+import { useMutation } from '@tanstack/react-query';
 import axios, { type AxiosError } from 'axios';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -24,11 +24,11 @@ import { Textarea } from '@/components/ui/textarea';
 import type { TaskItemProps } from '@/components/tasks/task-item';
 
 const EditTask: React.FC<TaskItemProps> = ({ task }) => {
+    const [open, setOpen] = useState(false);
+    const router = useRouter();
+
     const user = useLoaderData({ from: '__root__' });
     const userId = user?.data._id;
-
-    const queryClient = useQueryClient();
-    const [open, setOpen] = useState(false);
 
     const {
         handleSubmit,
@@ -44,15 +44,15 @@ const EditTask: React.FC<TaskItemProps> = ({ task }) => {
     });
 
     const { mutate, isPending } = useMutation({
-        mutationKey: ['createTask'],
+        mutationKey: ['editTask'],
         mutationFn: async (values: z.infer<typeof createTaskSchema>) => {
             const res = await axios.put(`/api/tasks/${task._id}`, values);
             return res.data;
         },
-        onSuccess: (data) => {
+        onSuccess: async (data) => {
             toast.success(data.message);
             setOpen(false);
-            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+            await router.invalidate();
         },
         onError: (error: AxiosError<{ message: string }>) => {
             toast.error(error.response?.data.message || 'An error occurred');
