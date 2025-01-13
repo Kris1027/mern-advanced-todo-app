@@ -32,25 +32,6 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
         },
     });
 
-    const { mutate: toggleTaskCompletion, isPending: isCompleting } = useMutation({
-        mutationKey: ['toggleTask'],
-        mutationFn: async () => {
-            const res = await axios.put(`/api/tasks/${task._id}/complete`);
-            return res.data;
-        },
-        onSuccess: async (data) => {
-            if (data.data.isComplete) {
-                toast.success('Task completed');
-            } else {
-                toast.error('Task marked as incomplete');
-            }
-            await router.invalidate();
-        },
-        onError: (error: AxiosError<{ message: string }>) => {
-            toast.error(error.response?.data.message || 'An error occurred');
-        },
-    });
-
     return (
         <Card className='overflow-hidden'>
             <CardHeader>
@@ -70,11 +51,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
             </CardContent>
             <CardFooter className='flex justify-between'>
                 <div className='flex gap-4 items-center'>
-                    <ToggleTask
-                        task={task}
-                        toggleTaskCompletion={toggleTaskCompletion}
-                        isCompleting={isCompleting}
-                    />
+                    <ToggleTask task={task} />
                     {!task.isComplete && <EditTask task={task} />}
                     <AlertModal deleteTask={deleteTask} isDeleting={isDeleting} />
                 </div>
