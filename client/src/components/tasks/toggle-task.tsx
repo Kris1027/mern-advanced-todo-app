@@ -15,7 +15,6 @@ const ToggleTask: React.FC<ToggleTaskProps> = ({ task }) => {
     const router = useRouter();
 
     const { mutate: toggleTaskCompletion, isPending: isCompleting } = useMutation({
-        mutationKey: ['toggleTask'],
         mutationFn: async () => {
             const res = await axios.put(`/api/tasks/${task._id}/complete`);
             return res.data;

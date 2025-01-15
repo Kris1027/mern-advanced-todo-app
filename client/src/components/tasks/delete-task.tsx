@@ -13,7 +13,6 @@ const DeleteTask: React.FC<DeleteTaskProps> = ({ task }) => {
     const router = useRouter();
 
     const { mutate: deleteTask, isPending: isDeleting } = useMutation({
-        mutationKey: ['deleteTask'],
         mutationFn: async () => {
             const res = await axios.delete(`/api/tasks/${task._id}`);
             return res.data;

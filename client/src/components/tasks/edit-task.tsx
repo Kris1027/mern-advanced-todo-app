@@ -44,7 +44,6 @@ const EditTask: React.FC<TaskItemProps> = ({ task }) => {
     });
 
     const { mutate, isPending } = useMutation({
-        mutationKey: ['editTask'],
         mutationFn: async (values: z.infer<typeof createTaskSchema>) => {
             const res = await axios.put(`/api/tasks/${task._id}`, values);
             return res.data;

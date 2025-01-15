@@ -39,7 +39,6 @@ const CreateTask: React.FC = () => {
     });
 
     const { mutate, isPending } = useMutation({
-        mutationKey: ['newTask'],
         mutationFn: async (values: z.infer<typeof createTaskSchema>) => {
             const res = await axios.post('/api/tasks', values);
             return res.data;
